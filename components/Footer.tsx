@@ -4,8 +4,8 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <>
-      <footer className="max-w-screen-2xl bg-bg-primary mx-auto px-4 pb-5 fixed w-full bottom-0 left-1/2 translate-x-[-50%]">
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+      <footer className="max-w-screen-xl bg-bg-primary mx-auto px-4 py-6 fixed w-full bottom-0 left-1/2 translate-x-[-50%]">
+        {/* <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" /> */}
         <div className="flex flex-wrap justify-between md:flex-row flex-col items-center">
           <span className="text-base  sm:text-center ">
             © {new Date().getFullYear()}{" "}

@@ -1,29 +1,27 @@
 "use client";
 import Loading from "@/components/Loading";
 import ProblemCard from "@/components/ProblemCard";
-import { Problem } from "@/lib/interfaces";
-import axios from "axios";
+import { Content } from "@/lib/interfaces";
+import { getSpecificPosts } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 export default function Page() {
-  const [allproblems, setAllproblems] = useState<Problem[] | null>(null);
-  const getData = async () => {
-    let res = await axios.get("/api/leetcode/allproblems");
-    console.log(res.data.problems);
-
-    setAllproblems(res.data.problems);
+  const [allproblems, setAllproblems] = useState<Content[] | null>(null);
+  const getData = async (type: string) => {
+    let data = await getSpecificPosts(type);
+    setAllproblems(data.limitPosts);
   };
   useEffect(() => {
-    getData();
+    getData("problem");
   }, []);
   if (!allproblems) return <Loading />;
 
   return (
-    <div className="latest_problems max-w-screen-xl mx-auto p-4 w-full">
-      <h1 className="font-bold text-2xl" mt-2>
-        Latest Problems
-      </h1>
-      <div className="flex flex-wrap w-full">
+    <div className="latest_problems max-w-screen-xl mx-auto mt-10 p-4 w-full">
+      <h1 className="font-bold text-5xl mb-3 ">Latest Problems</h1>
+      <hr className="bg-btn-primary opacity-40" />
+
+      <div className="flex flex-wrap w-full ">
         {allproblems.map((problem, idx) => (
           <ProblemCard problem={problem} key={idx} />
         ))}

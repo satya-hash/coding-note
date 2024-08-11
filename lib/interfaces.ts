@@ -1,21 +1,29 @@
-export interface Problem {
+export interface Content {
   id: string;
   title: string;
+  type:'problem'|'blog';
   statement: string;
-  examples: Array<{
+  examples?: Array<{
     input: string;
     output: string;
     explanation: string;
   }>;
-  approach: string[];
-  code: {
+  steps: string[];
+  code?: {
     javascript: string;
     python: string;
     java: string;
   };
-  timeComplexity: string;
-  spaceComplexity: string;
-  difficulty: string;
+  complexity?:{
+    timeComplexity?: string;
+    spaceComplexity?: string;
+  };
+  difficulty?: string;
   link: string;
-  dateOfSolved: string;
+  dateOfUpload: string;
+  subheadings?:Array<{
+    heading:string;
+    description:string
+  }>;
+  tags:string[];
 }

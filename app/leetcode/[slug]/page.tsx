@@ -2,22 +2,22 @@
 import Loading from "@/components/Loading";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Problem } from "@/lib/interfaces";
-import axios from "axios";
+import { Content } from "@/lib/interfaces";
+import { getProblem } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 export default function Page({ params }: { params: { slug: string } }) {
-  const [problem, setProblem] = useState<Problem | null>(null);
-  const getData = async (query: string) => {
-    let res = await axios.get("/api/leetcode/two-sum");
-    setProblem(res.data);
+  const [problem, setProblem] = useState<Content | null>(null);
+  const getData = async (slug: string) => {
+    let data = await getProblem(slug);
+    setProblem(data.limitPosts[0]);
   };
 
   useEffect(() => {
-    getData("two-sum");
-  }, []);
+    getData(params.slug);
+  }, [params.slug]);
 
   if (!problem) return <Loading />;
   else
@@ -40,39 +40,42 @@ export default function Page({ params }: { params: { slug: string } }) {
             </h1>
             <p>
               {" "}
-              {`${new Date(problem.dateOfSolved).toLocaleString("default", {
+              {`${new Date(problem.dateOfUpload).toLocaleString("default", {
                 month: "short",
-              })} ${new Date(problem.dateOfSolved).getDate()}`}{" "}
+              })} ${new Date(problem.dateOfUpload).getDate()}`}{" "}
             </p>{" "}
           </div>
           <div className="problem_details max-w-screen-lg mx-auto mt-10 flex flex-col gap-5">
             <div>
-              <h3 className="text-xl font-semibold">Problem Statement:</h3>
+              <h3 className="text-3xl font-semibold">Problem Statement:</h3>
               <p className="mt-3"> {problem.statement} </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold mb-2">Examples:</h3>
-              {problem.examples.map((example, idx) => (
+              <h3 className="text-3xl font-semibold mb-2">Examples:</h3>
+              {problem.examples?.map((example, idx) => (
                 <ul key={idx} className="mt-3">
                   <li>
                     {" "}
-                    <span className="font-semibold"> Input: </span> {example.input}
+                    <span className="font-semibold"> Input: </span>{" "}
+                    {example.input}
                   </li>{" "}
                   <li>
                     {" "}
-                    <span className="font-semibold"> Output: </span> {example.output}
+                    <span className="font-semibold"> Output: </span>{" "}
+                    {example.output}
                   </li>{" "}
                   <li>
                     {" "}
-                    <span className="font-semibold"> Explanation: </span> {example.explanation}
+                    <span className="font-semibold"> Explanation: </span>{" "}
+                    {example.explanation}
                   </li>{" "}
                 </ul>
               ))}
             </div>
             <div>
-              <h3 className="text-xl font-semibold mb-2">Approach:</h3>
+              <h3 className="text-3xl font-semibold mb-2">Approach:</h3>
               <ul>
-                {problem.approach.map((step, idx) => (
+                {problem.steps?.map((step, idx) => (
                   <li className="list-disc ml-5" key={idx}>
                     {" "}
                     <p> {step} </p>{" "}
@@ -81,54 +84,56 @@ export default function Page({ params }: { params: { slug: string } }) {
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-semibold mb-2">Complexity:</h3>
+              <h3 className="text-3xl font-semibold mb-2">Complexity:</h3>
               <ul>
                 <span>
                   <strong>Time Complexity:</strong>
                 </span>
-                <li> {problem.timeComplexity} </li>
+                <li> {problem.complexity?.timeComplexity} </li>
                 <span>
                   <strong>Space Complexity:</strong>
                 </span>
-                <li> {problem.spaceComplexity} </li>
+                <li> {problem.complexity?.spaceComplexity} </li>
               </ul>
             </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-2">Code:</h3>
-              <Tabs defaultValue="js" className="max-w-screen-md">
-                <TabsList>
-                  <TabsTrigger value="js">Java Script</TabsTrigger>
-                  <TabsTrigger value="py">Python</TabsTrigger>
-                  <TabsTrigger value="java">Java</TabsTrigger>
-                  {/* <TabsTrigger value="cpp">C++</TabsTrigger> */}
-                </TabsList>
-                <TabsContent
-                  value="js"
-                  className="bg-bg-code w-full max-w-screen-lg"
-                >
-                  <SyntaxHighlighter language="javascript" style={tomorrow}>
-                    {problem.code.javascript}
-                  </SyntaxHighlighter>
-                </TabsContent>
-                <TabsContent value="py">
+            {problem.code && (
+              <div>
+                <h3 className="text-3xl font-semibold mb-2">Code:</h3>
+                <Tabs defaultValue="js" className="max-w-screen-md">
+                  <TabsList>
+                    <TabsTrigger value="js">Java Script</TabsTrigger>
+                    <TabsTrigger value="py">Python</TabsTrigger>
+                    <TabsTrigger value="java">Java</TabsTrigger>
+                    {/* <TabsTrigger value="cpp">C++</TabsTrigger> */}
+                  </TabsList>
+                  <TabsContent
+                    value="js"
+                    className="bg-bg-code w-full max-w-screen-lg"
+                  >
+                    <SyntaxHighlighter language="javascript" style={tomorrow}>
+                      {problem.code?.javascript}
+                    </SyntaxHighlighter>
+                  </TabsContent>
+                  <TabsContent value="py">
+                    {" "}
+                    <SyntaxHighlighter language="python" style={tomorrow}>
+                      {problem.code?.python}
+                    </SyntaxHighlighter>
+                  </TabsContent>
+                  <TabsContent value="java">
+                    <SyntaxHighlighter language="java" style={tomorrow}>
+                      {problem.code?.java}
+                    </SyntaxHighlighter>
+                  </TabsContent>
+                  {/* <TabsContent value="cpp">
                   {" "}
-                  <SyntaxHighlighter language="python" style={tomorrow}>
-                    {problem.code.python}
-                  </SyntaxHighlighter>
-                </TabsContent>
-                <TabsContent value="java">
-                  <SyntaxHighlighter language="java" style={tomorrow}>
-                    {problem.code.java}
-                  </SyntaxHighlighter>
-                </TabsContent>
-                {/* <TabsContent value="cpp">
-                  {" "}
                   <SyntaxHighlighter language="javascript" style={tomorrow}>
-                    html
+                  html
                   </SyntaxHighlighter>
-                </TabsContent> */}
-              </Tabs>
-            </div>
+                  </TabsContent> */}
+                </Tabs>
+              </div>
+            )}
           </div>
         </div>
       </div>

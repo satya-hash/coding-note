@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 const Navbar = () => {
   return (
-    <nav className="shadow-xl">
-      <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4 ">
+    <nav className="">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
         <Link
           href="/"
-          className="flex items-center space-x-3 lg:w-1/4 w-1/3 rtl:space-x-reverse"
+          className="flex items-center space-x-3 lg:w-1/6 md:w-1/4 w-1/3 rtl:space-x-reverse"
         >
           <Image src={Logo} alt="Logo" />
         </Link>
