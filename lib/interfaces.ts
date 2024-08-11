@@ -7,7 +7,7 @@ export interface Problem {
     output: string;
     explanation: string;
   }>;
-  approach: string;
+  approach: string[];
   code: {
     javascript: string;
     python: string;

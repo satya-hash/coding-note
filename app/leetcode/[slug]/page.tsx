@@ -53,28 +53,32 @@ export default function Page({ params }: { params: { slug: string } }) {
             <div>
               <h3 className="text-xl font-semibold mb-2">Examples:</h3>
               {problem.examples.map((example, idx) => (
-                <ul key={idx}>
+                <ul key={idx} className="mt-3">
                   <li>
                     {" "}
-                    <strong> Input: </strong>{" "}
+                    <span className="font-semibold"> Input: </span> {example.input}
                   </li>{" "}
-                  {example.input}
                   <li>
                     {" "}
-                    <strong> Output: </strong>{" "}
+                    <span className="font-semibold"> Output: </span> {example.output}
                   </li>{" "}
-                  {example.output}
                   <li>
                     {" "}
-                    <strong> Explanation: </strong>{" "}
+                    <span className="font-semibold"> Explanation: </span> {example.explanation}
                   </li>{" "}
-                  {example.explanation}
                 </ul>
               ))}
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-2">Approach:</h3>
-              <p className="mt-3">{problem.approach}</p>
+              <ul>
+                {problem.approach.map((step, idx) => (
+                  <li className="list-disc ml-5" key={idx}>
+                    {" "}
+                    <p> {step} </p>{" "}
+                  </li>
+                ))}
+              </ul>
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-2">Complexity:</h3>
@@ -96,7 +100,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                   <TabsTrigger value="js">Java Script</TabsTrigger>
                   <TabsTrigger value="py">Python</TabsTrigger>
                   <TabsTrigger value="java">Java</TabsTrigger>
-                  <TabsTrigger value="cpp">C++</TabsTrigger>
+                  {/* <TabsTrigger value="cpp">C++</TabsTrigger> */}
                 </TabsList>
                 <TabsContent
                   value="js"
@@ -117,12 +121,12 @@ export default function Page({ params }: { params: { slug: string } }) {
                     {problem.code.java}
                   </SyntaxHighlighter>
                 </TabsContent>
-                <TabsContent value="cpp">
+                {/* <TabsContent value="cpp">
                   {" "}
                   <SyntaxHighlighter language="javascript" style={tomorrow}>
                     html
                   </SyntaxHighlighter>
-                </TabsContent>
+                </TabsContent> */}
               </Tabs>
             </div>
           </div>
