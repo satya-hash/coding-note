@@ -6,7 +6,7 @@ const page = () => {
     <div className="latest_problems max-w-screen-lg mx-auto p-4 w-full">
       <div className="my-5">
         <h1 className="font-semibold text-2xl mb-3">
-          About Pitani Satya Surendra
+          About Satya Surendra
         </h1>
         <p>
           Welcome to Coding Note, where innovation meets expertise in front-end
