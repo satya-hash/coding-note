@@ -39,12 +39,12 @@ const ProblemCard = (props: any) => {
             </div>
             <p>
               {" "}
-              {`${new Date(props.problem.dateOfSolved).toLocaleString(
+              {`${new Date(props.problem.dateOfUpload).toLocaleString(
                 "default",
                 {
                   month: "short",
                 }
-              )} ${new Date(props.problem.dateOfSolved).getDate()}`}{" "}
+              )} ${new Date(props.problem.dateOfUpload).getDate()}`}{" "}
             </p>
           </div>
         </div>
