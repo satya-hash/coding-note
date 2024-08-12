@@ -18,7 +18,9 @@ export default function Page() {
 
   return (
     <div className="latest_problems max-w-screen-xl mx-auto mt-10 p-4 w-full">
-      <h1 className="font-bold text-5xl mb-3 ">Latest Problems</h1>
+      <h1 className="font-bold md:text-3xl text-2xl lg:text-4xl mb-3 ">
+        Latest Problems
+      </h1>
       <hr className="bg-btn-primary opacity-40" />
 
       <div className="flex flex-wrap w-full ">

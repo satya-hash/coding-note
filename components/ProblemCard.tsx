@@ -11,7 +11,7 @@ const ProblemCard = (props: any) => {
       href={`${props.problem.link}`}
       className="p-4 w-full md:w-1/2 lg:w-1/3 transition ease-in-out overflow-hidden"
     >
-      <div className="h-full transition ease-in-out hover:scale-105 border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden cursor-pointer bg-bg-code">
+      <div className="h-full transition ease-in-out hover:-translate-y-2 border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden cursor-pointer bg-bg-code">
         <div className="flex h-48  items-center ">
           <Image className="w-36 object-cover " src={leetcode} alt="blog" />
           <h1 className="text-lg font-semibold">Leetcode</h1>
@@ -33,9 +33,9 @@ const ProblemCard = (props: any) => {
                 <AvatarImage src="https://avatars.githubusercontent.com/u/85430181?v=4" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <a className=" inline-flex items-center md:mb-2  font-semibold lg:mb-0">
+              <span className=" inline-flex items-center md:mb-2  font-semibold lg:mb-0">
                 Coding Note
-              </a>
+              </span>
             </div>
             <p>
               {" "}

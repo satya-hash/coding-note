@@ -5,6 +5,7 @@ import { Content } from "@/lib/interfaces";
 import Link from "next/link";
 import { MoveRightIcon } from "lucide-react";
 import { getAllPosts } from "@/lib/utils";
+import { Badge } from "./ui/badge";
 
 const Posts = () => {
   const [allproblems, setAllproblems] = useState<Content[] | null>(null);
@@ -23,7 +24,7 @@ const Posts = () => {
           <hr className="bg-btn-primary w-full opacity-40 my-10 " />
           <tr>
             <td className="w-1/4">
-              <h3 className="text-lg opacity-85">
+              <h3 className="lg:text-lg text-sm opacity-85">
                 {" "}
                 {`${new Date(problem.dateOfUpload).toLocaleString("default", {
                   month: "long",
@@ -33,14 +34,20 @@ const Posts = () => {
               </h3>
             </td>
             <td>
-              <h2 className="text-2xl font-semibold"> {problem.title} </h2>
-              <h3 className="text-link-primary capitalize">
+              <h2 className="lg:text-2xl md:text-xl text-lg font-semibold">
+                {" "}
+                {problem.title}{" "}
+              </h2>
+              <Badge
+                variant={problem.difficulty}
+                className="capitalize text-black"
+              >
                 {" "}
                 {problem.difficulty}{" "}
-              </h3>
+              </Badge>
               <p className="my-5"> {problem.statement} </p>
               <Link
-                className="text-link-primary font-semibold mt-10 flex gap-2 hover:gap-3 transition ease-in-out w-fit"
+                className="text-btn-primary font-semibold mt-10 flex gap-2 hover:gap-3 transition ease-in-out w-fit"
                 href={problem.link}
               >
                 {" "}

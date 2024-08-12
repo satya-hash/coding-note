@@ -17,7 +17,6 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   useEffect(() => {
     getData(params.slug);
-    console.log(params.slug);
   }, [params.slug]);
 
   if (!problem) return <Loading />;
