@@ -17,6 +17,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   useEffect(() => {
     getData(params.slug);
+    console.log(params.slug);
   }, [params.slug]);
 
   if (!problem) return <Loading />;
@@ -99,7 +100,7 @@ export default function Page({ params }: { params: { slug: string } }) {
             {problem.code && (
               <div>
                 <h3 className="text-3xl font-semibold mb-2">Code:</h3>
-                <Tabs defaultValue="js" className="max-w-screen-md">
+                <Tabs defaultValue="js" className="max-w-screen-lg">
                   <TabsList>
                     <TabsTrigger value="js">Java Script</TabsTrigger>
                     <TabsTrigger value="py">Python</TabsTrigger>

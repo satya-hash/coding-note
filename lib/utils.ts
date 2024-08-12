@@ -20,9 +20,9 @@ export async function getSpecificPosts(type:string){
 }
 
 export async function getProblem(slug:string) {
-  let searchParams=new URLSearchParams();
-  searchParams.append('id',slug);
-  let searchQuery = `${url}/leetcode?${searchParams}`;
+  // let searchParams=new URLSearchParams();
+  // searchParams.append('slug',slug);
+  let searchQuery = `${url}/leetcode/${slug}`;
   let res = await axios.get(searchQuery);
   return res.data;
 }
