@@ -39,7 +39,7 @@ const Posts = () => {
                 {problem.title}{" "}
               </h2>
               <Badge
-                variant={problem.difficulty}
+                variant={problem.difficulty as "easy" | "medium" | "hard"}
                 className="capitalize text-black"
               >
                 {" "}
