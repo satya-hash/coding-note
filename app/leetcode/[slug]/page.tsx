@@ -47,11 +47,15 @@ export default function Page({ params }: { params: { slug: string } }) {
           </div>
           <div className="problem_details max-w-screen-lg mx-auto mt-10 flex flex-col gap-5">
             <div>
-              <h3 className="text-3xl font-semibold">Problem Statement:</h3>
+              <h3 className="lg:text-3xl md:text-2xl text-xl font-semibold">
+                Problem Statement:
+              </h3>
               <p className="mt-3"> {problem.statement} </p>
             </div>
             <div>
-              <h3 className="text-3xl font-semibold mb-2">Examples:</h3>
+              <h3 className="lg:text-3xl md:text-2xl text-xl  font-semibold mb-2">
+                Examples:
+              </h3>
               {problem.examples?.map((example, idx) => (
                 <ul key={idx} className="mt-3">
                   <li>
@@ -73,7 +77,9 @@ export default function Page({ params }: { params: { slug: string } }) {
               ))}
             </div>
             <div>
-              <h3 className="text-3xl font-semibold mb-2">Approach:</h3>
+              <h3 className="lg:text-3xl md:text-2xl text-xl  font-semibold mb-2">
+                Approach:
+              </h3>
               <ul>
                 {problem.steps?.map((step, idx) => (
                   <li className="list-disc ml-5" key={idx}>
@@ -84,7 +90,9 @@ export default function Page({ params }: { params: { slug: string } }) {
               </ul>
             </div>
             <div>
-              <h3 className="text-3xl font-semibold mb-2">Complexity:</h3>
+              <h3 className="lg:text-3xl md:text-2xl text-xl  font-semibold mb-2">
+                Complexity:
+              </h3>
               <ul>
                 <span>
                   <strong>Time Complexity:</strong>
@@ -98,7 +106,9 @@ export default function Page({ params }: { params: { slug: string } }) {
             </div>
             {problem.code && (
               <div>
-                <h3 className="text-3xl font-semibold mb-2">Code:</h3>
+                <h3 className="lg:text-3xl md:text-2xl text-xl  font-semibold mb-2">
+                  Code:
+                </h3>
                 <Tabs defaultValue="js" className="max-w-screen-lg">
                   <TabsList>
                     <TabsTrigger value="js">Java Script</TabsTrigger>
