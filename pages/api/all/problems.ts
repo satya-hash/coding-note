@@ -390,6 +390,243 @@ const problems: Content[] = [
     link: "/leetcode/238",
     dateOfUpload: "2024/08/13",
   },
+  {
+    id: "merge-intervals",
+    title: "56. Merge Intervals",
+    type: "problem",
+    statement:
+      "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+    examples: [
+      {
+        input: "intervals = [[1,3],[2,6],[8,10],[15,18]]",
+        output: "[[1,6],[8,10],[15,18]]",
+        explanation:
+          "Since intervals [1,3] and [2,6] overlap, merge them into [1,6].",
+      },
+      {
+        input: "intervals = [[1,4],[4,5]]",
+        output: "[[1,5]]",
+        explanation: "Intervals [1,4] and [4,5] are considered overlapping.",
+      },
+    ],
+    steps: [
+      "Sort the intervals based on the start time of each interval.",
+      "Initialize an empty array 'arr' to store the merged intervals.",
+      "Set the first interval as 'prev'.",
+      "Iterate through the rest of the intervals.",
+      "For each interval 'cur', check if it overlaps with 'prev' (i.e., if 'prev[1]' is greater than or equal to 'cur[0]').",
+      "If they overlap, merge them by updating 'prev[1]' to the maximum of 'prev[1]' and 'cur[1]'.",
+      "If they don't overlap, push 'prev' to 'arr' and set 'cur' as the new 'prev'.",
+      "After the loop, push the last interval 'prev' to 'arr'.",
+      "Return 'arr' as the merged intervals.",
+    ],
+    code: {
+      javascript: `/**
+   * @param {number[][]} intervals
+   * @return {number[][]}
+   */
+  var merge = function (intervals) {
+      arr = [];
+      intervals.sort((a, b) => a[0] - b[0]);
+  
+      let prev = intervals[0];
+  
+      for (let i = 1; i < intervals.length; i++) {
+          let cur = intervals[i];
+          if (prev[1] >= cur[0]) {
+              prev[1] = Math.max(cur[1], prev[1])
+          } else {
+              arr.push(prev)
+              prev = cur;
+          }
+      }
+  
+      arr.push(prev)
+      return arr;
+  };`,
+      python: `def merge(intervals):
+      intervals.sort(key=lambda x: x[0])
+      merged = []
+      prev = intervals[0]
+      
+      for i in range(1, len(intervals)):
+          cur = intervals[i]
+          if prev[1] >= cur[0]:
+              prev[1] = max(prev[1], cur[1])
+          else:
+              merged.append(prev)
+              prev = cur
+      
+      merged.append(prev)
+      return merged`,
+      java: `import java.util.Arrays;
+  import java.util.LinkedList;
+  
+  class Solution {
+      public int[][] merge(int[][] intervals) {
+          Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+          LinkedList<int[]> merged = new LinkedList<>();
+          
+          for (int[] interval : intervals) {
+              if (merged.isEmpty() || merged.getLast()[1] < interval[0]) {
+                  merged.add(interval);
+              } else {
+                  merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
+              }
+          }
+          
+          return merged.toArray(new int[merged.size()][]);
+      }
+  }`,
+    },
+    complexity: {
+      timeComplexity: "O(n log n)",
+      spaceComplexity: "O(n)",
+    },
+    tags: ["leetcode", "merge intervals", "javascript", "java", "python"],
+    difficulty: "medium",
+    link: "/leetcode/merge-intervals",
+    dateOfUpload: "2024/08/14",
+  },
+  {
+    id: "spiral-matrix",
+    title: "54. Spiral Matrix",
+    type: "problem",
+    statement:
+      "Given an m x n matrix, return all elements of the matrix in spiral order.",
+    examples: [
+      {
+        input: "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        output: "[1,2,3,6,9,8,7,4,5]",
+        explanation:
+          "Start at the top-left corner and move right across the first row to get [1, 2, 3]. Then move down the last column to get [6, 9]. Move left across the bottom row to get [8, 7]. Finally, move up the first column to get [4]. The remaining element is [5] in the center.",
+      },
+      {
+        input: "matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]",
+        output: "[1,2,3,4,8,12,11,10,9,5,6,7]",
+        explanation:
+          "Start at the top-left corner and move right across the first row to get [1, 2, 3, 4]. Then move down the last column to get [8, 12]. Move left across the bottom row to get [11, 10, 9]. Move up the first column to get [5]. The remaining middle elements are collected by moving right in the second row to get [6, 7].",
+      },
+    ],
+    steps: [
+      "Initialize four pointers: 'top' at 0, 'bottom' at the last row index, 'left' at 0, and 'right' at the last column index.",
+      "While 'top' <= 'bottom' and 'left' <= 'right', perform the following steps:",
+      "Traverse from 'left' to 'right' along the 'top' row, and move 'top' pointer down.",
+      "Traverse from 'top' to 'bottom' along the 'right' column, and move 'right' pointer left.",
+      "If 'top' <= 'bottom', traverse from 'right' to 'left' along the 'bottom' row, and move 'bottom' pointer up.",
+      "If 'left' <= 'right', traverse from 'bottom' to 'top' along the 'left' column, and move 'left' pointer right.",
+      "Continue this process until the pointers meet or cross each other.",
+      "Return the array of elements collected in spiral order.",
+    ],
+    code: {
+      javascript: `/**
+   * @param {number[][]} matrix
+   * @return {number[]}
+   */
+  var spiralOrder = function (matrix) {
+      let n = matrix.length - 1, m = matrix[0].length - 1;
+      let left = 0, right = m, top = 0, bottom = n;
+      let res = [];
+      while (left <= right && top <= bottom) {
+  
+          for (let i = left; i <= right; i++) {
+              res.push(matrix[top][i])
+          }
+          top++;
+          for (let i = top; i <= bottom; i++) {
+              res.push(matrix[i][right]);
+          }
+          right--;
+          if (top <= bottom) {
+  
+              for (let i = right; i >= left; i--) {
+                  res.push(matrix[bottom][i])
+              }
+              bottom--;
+          }
+          if (left <= right) {
+  
+              for (let i = bottom; i >= top; i--) {
+                  res.push(matrix[i][left])
+              }
+              left++;
+          }
+      }
+      return res;
+  };`,
+      python: `def spiralOrder(matrix):
+      res = []
+      left, right = 0, len(matrix[0]) - 1
+      top, bottom = 0, len(matrix) - 1
+      
+      while left <= right and top <= bottom:
+          for i in range(left, right + 1):
+              res.append(matrix[top][i])
+          top += 1
+          
+          for i in range(top, bottom + 1):
+              res.append(matrix[i][right])
+          right -= 1
+          
+          if top <= bottom:
+              for i in range(right, left - 1, -1):
+                  res.append(matrix[bottom][i])
+              bottom -= 1
+          
+          if left <= right:
+              for i in range(bottom, top - 1, -1):
+                  res.append(matrix[i][left])
+              left += 1
+      
+      return res`,
+      java: `import java.util.ArrayList;
+  import java.util.List;
+  
+  class Solution {
+      public List<Integer> spiralOrder(int[][] matrix) {
+          List<Integer> res = new ArrayList<>();
+          int left = 0, right = matrix[0].length - 1;
+          int top = 0, bottom = matrix.length - 1;
+          
+          while (left <= right && top <= bottom) {
+              for (int i = left; i <= right; i++) {
+                  res.add(matrix[top][i]);
+              }
+              top++;
+              
+              for (int i = top; i <= bottom; i++) {
+                  res.add(matrix[i][right]);
+              }
+              right--;
+              
+              if (top <= bottom) {
+                  for (int i = right; i >= left; i--) {
+                      res.add(matrix[bottom][i]);
+                  }
+                  bottom--;
+              }
+              
+              if (left <= right) {
+                  for (int i = bottom; i >= top; i--) {
+                      res.add(matrix[i][left]);
+                  }
+                  left++;
+              }
+          }
+          
+          return res;
+      }
+  }`,
+    },
+    complexity: {
+      timeComplexity: "O(m * n)",
+      spaceComplexity: "O(1)",
+    },
+    tags: ["leetcode", "spiral matrix", "javascript", "java", "python"],
+    difficulty: "medium",
+    link: "/leetcode/spiral-matrix",
+    dateOfUpload: "2024/08/14",
+  },
 ];
 
 export default problems;
