@@ -627,6 +627,98 @@ const problems: Content[] = [
     link: "/leetcode/spiral-matrix",
     dateOfUpload: "2024/08/14",
   },
+  {
+    id: "rotate-image",
+    title: "48. Rotate Image",
+    type: "problem",
+    statement:
+      "You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise). You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.",
+    examples: [
+      {
+        input: "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        output: "[[7,4,1],[8,5,2],[9,6,3]]",
+        explanation:
+          "First, transpose the matrix, converting rows into columns. The matrix becomes [[1,4,7],[2,5,8],[3,6,9]]. Then, reverse each row to get the final rotated matrix.",
+      },
+      {
+        input: "matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]",
+        output: "[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]",
+        explanation:
+          "First, transpose the matrix. The matrix becomes [[5,2,13,15],[1,4,3,14],[9,8,6,12],[11,10,7,16]]. Then, reverse each row to get the final rotated matrix.",
+      },
+    ],
+    steps: [
+      "Transpose the matrix by swapping elements across its diagonal.",
+      "Iterate over each row and reverse its elements to achieve the 90-degree rotation.",
+      "This method modifies the matrix in place, without using any extra space for another matrix.",
+    ],
+    code: {
+      javascript: `/**
+   * @param {number[][]} matrix
+   * @return {void} Do not return anything, modify matrix in-place instead.
+   */
+  var rotate = function(matrix) {
+      let rowLen = matrix.length;
+      let colLen = matrix[0].length;
+     for (let i = 0; i < rowLen; i++) {
+    for (let j = 0; j < i; j++) {
+      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+    }
+  }
+  for (let i = 0; i < rowLen; i++) {
+    matrix[i].reverse();
+  }
+  };`,
+      python: `def rotate(matrix):
+      n = len(matrix)
+      # Transpose the matrix
+      for i in range(n):
+          for j in range(i, n):
+              matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+      
+      # Reverse each row
+      for i in range(n):
+          matrix[i].reverse()`,
+      java: `class Solution {
+      public void rotate(int[][] matrix) {
+          int n = matrix.length;
+          
+          // Transpose the matrix
+          for (int i = 0; i < n; i++) {
+              for (int j = i; j < n; j++) {
+                  int temp = matrix[i][j];
+                  matrix[i][j] = matrix[j][i];
+                  matrix[j][i] = temp;
+              }
+          }
+          
+          // Reverse each row
+          for (int i = 0; i < n; i++) {
+              reverseRow(matrix[i]);
+          }
+      }
+      
+      private void reverseRow(int[] row) {
+          int left = 0, right = row.length - 1;
+          while (left < right) {
+              int temp = row[left];
+              row[left] = row[right];
+              row[right] = temp;
+              left++;
+              right--;
+          }
+      }
+  }`,
+    },
+    complexity: {
+      timeComplexity: "O(n^2)",
+      spaceComplexity: "O(1)",
+    },
+    tags: ["leetcode", "rotate image", "javascript", "java", "python"],
+    difficulty: "medium",
+    link: "/leetcode/rotate-image",
+    dateOfUpload: "2024/08/15",
+  },
 ];
 
 export default problems;
