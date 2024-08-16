@@ -1,12 +1,12 @@
 export interface Content {
   id: string;
   title: string;
-  type:'problem'|'blog';
+  type: "problem" | "blog";
   statement: string;
   examples?: Array<{
     input: string;
     output: string;
-    explanation: string;
+    explanation?: string;
   }>;
   steps: string[];
   code?: {
@@ -14,16 +14,16 @@ export interface Content {
     python: string;
     java: string;
   };
-  complexity?:{
+  complexity?: {
     timeComplexity?: string;
     spaceComplexity?: string;
   };
   difficulty?: string;
   link: string;
   dateOfUpload: string;
-  subheadings?:Array<{
-    heading:string;
-    description:string
+  subheadings?: Array<{
+    heading: string;
+    description: string;
   }>;
-  tags:string[];
+  tags: string[];
 }

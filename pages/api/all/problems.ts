@@ -80,7 +80,7 @@ const problems: Content[] = [
   },
   {
     id: "find-closest-number",
-    title: "Find Closest Number to Zero",
+    title: "2239. Find Closest Number to Zero",
     type: "problem",
     statement:
       "Given an integer array nums of size n, return the number with the value closest to 0 in nums. If there are multiple answers, return the number with the largest value.",
@@ -718,6 +718,86 @@ const problems: Content[] = [
     difficulty: "medium",
     link: "/leetcode/rotate-image",
     dateOfUpload: "2024/08/15",
+  },
+  {
+    id: "group-anagrams",
+    title: "49. Group Anagrams",
+    type: "problem",
+    statement:
+      "Given an array of strings strs, group the anagrams together. You can return the answer in any order. An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.",
+    examples: [
+      {
+        input: 'strs = ["eat","tea","tan","ate","nat","bat"]',
+        output: '[["bat"],["nat","tan"],["ate","eat","tea"]]',
+      },
+      {
+        input: 'strs = [""]',
+        output: '[[""]]',
+      },
+      {
+        input: 'strs = ["a"]',
+        output: '[["a"]]',
+      },
+    ],
+    steps: [
+      "Initialize a Map to store the grouped anagrams.",
+      "Iterate through each string in the array.",
+      "Sort each string alphabetically to create a key.",
+      "Check if the key exists in the Map.",
+      "If the key exists, append the string to the corresponding array. If not, create a new array for that key.",
+      "Finally, convert the values of the Map into an array of arrays and return it.",
+    ],
+    code: {
+      javascript: `/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function (strs) {
+    let mp = new Map();
+    for (const str of strs) {
+        let sorted = str.split("").sort().join("");
+        if (mp.has(sorted)) {
+            mp.set(sorted, [...mp.get(sorted), str]);
+        } else {
+            mp.set(sorted, [str]);
+        }
+    }
+    return Array.from(mp.values());
+};`,
+      python: `def groupAnagrams(strs):
+    anagram_map = {}
+    for s in strs:
+        sorted_s = ''.join(sorted(s))
+        if sorted_s in anagram_map:
+            anagram_map[sorted_s].append(s)
+        else:
+            anagram_map[sorted_s] = [s]
+    return list(anagram_map.values())`,
+      java: `import java.util.*;
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> anagramMap = new HashMap<>();
+        for (String s : strs) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            if (!anagramMap.containsKey(key)) {
+                anagramMap.put(key, new ArrayList<>());
+            }
+            anagramMap.get(key).add(s);
+        }
+        return new ArrayList<>(anagramMap.values());
+    }
+}`,
+    },
+    complexity: {
+      timeComplexity: "O(n * k * log k)",
+      spaceComplexity: "O(n * k)",
+    },
+    tags: ["leetcode", "group anagrams", "javascript", "java", "python"],
+    difficulty: "medium",
+    link: "/leetcode/group-anagrams",
+    dateOfUpload: "2024/08/16",
   },
 ];
 

@@ -68,11 +68,12 @@ export default function Page({ params }: { params: { slug: string } }) {
                     <span className="font-semibold"> Output: </span>{" "}
                     {example.output}
                   </li>{" "}
-                  <li>
-                    {" "}
-                    <span className="font-semibold"> Explanation: </span>{" "}
-                    {example.explanation}
-                  </li>{" "}
+                  {example.explanation && (
+                    <li>
+                      <span className="font-semibold"> Explanation: </span>{" "}
+                      {example.explanation}
+                    </li>
+                  )}
                 </ul>
               ))}
             </div>
