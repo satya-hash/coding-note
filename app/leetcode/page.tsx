@@ -1,19 +1,22 @@
 "use client";
-import Loading from "@/components/Loading";
-import ProblemCard from "@/components/ProblemCard";
-import { Content } from "@/lib/interfaces";
-import { getSpecificPosts } from "@/lib/utils";
+import Loading from "@/app/components/Loading";
+import ProblemCard from "@/app/components/ProblemCard";
+import { Content } from "@/app/lib/interfaces";
+import { getSpecificPosts } from "@/app/lib/utils";
 import { useEffect, useState } from "react";
 
 export default function Page() {
   const [allproblems, setAllproblems] = useState<Content[] | null>(null);
+
   const getData = async (type: string) => {
     let data = await getSpecificPosts(type);
-    setAllproblems(data.limitPosts);
+    setAllproblems(data.paginatedPosts);
   };
+
   useEffect(() => {
     getData("problem");
   }, []);
+
   if (!allproblems) return <Loading />;
 
   return (

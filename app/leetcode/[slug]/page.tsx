@@ -1,9 +1,18 @@
 "use client";
-import Loading from "@/components/Loading";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Content } from "@/lib/interfaces";
-import { getProblem } from "@/lib/utils";
+import Loading from "@/app/components/Loading";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/app/components/ui/avatar";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/app/components/ui/tabs";
+import { Content } from "@/app/lib/interfaces";
+import { getProblem } from "@/app/lib/utils";
 import { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";

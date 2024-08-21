@@ -1,4 +1,4 @@
-import { Content } from "@/lib/interfaces";
+import { Content } from "@/app/lib/interfaces";
 
 const problems: Content[] = [
   {
@@ -798,6 +798,249 @@ class Solution {
     difficulty: "medium",
     link: "/leetcode/group-anagrams",
     dateOfUpload: "2024/08/16",
+  },
+  {
+    id: "evaluate-reverse-polish-notation",
+    title: "150. Evaluate Reverse Polish Notation",
+    type: "problem",
+    statement:
+      "You are given an array of strings tokens that represents an arithmetic expression in Reverse Polish Notation. Evaluate the expression. Return an integer that represents the value of the expression. The valid operators are '+', '-', '*', and '/'. Each operand may be an integer or another expression. The division between two integers always truncates toward zero. There will not be any division by zero. The input represents a valid arithmetic expression in Reverse Polish Notation. The answer and all intermediate calculations can be represented in a 32-bit integer.",
+    examples: [
+      {
+        input: 'tokens = ["2","1","+","3","*"]',
+        output: "9",
+        explanation: "((2 + 1) * 3) = 9",
+      },
+      {
+        input: 'tokens = ["4","13","5","/","+"]',
+        output: "6",
+        explanation: "(4 + (13 / 5)) = 6",
+      },
+      {
+        input:
+          'tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]',
+        output: "22",
+        explanation: "((10 * (6 / ((9 + 3) * -11))) + 17) + 5 = 22",
+      },
+    ],
+    steps: [
+      "Initialize an empty stack.",
+      "Iterate through each token in the array.",
+      "If the token is an operator, pop the top two elements from the stack, perform the operation, and push the result back onto the stack.",
+      "If the token is a number, push it onto the stack.",
+      "After iterating through the tokens, the final result will be the only element left in the stack.",
+    ],
+    code: {
+      javascript: `/**
+ * @param {string[]} tokens
+ * @return {number}
+ */
+var evalRPN = function (tokens) {
+    let st = [], res = 0;
+
+    for (let i = 0; i < tokens.length; i++) {
+        if (tokens[i] === '+') {
+            let a = st.pop();
+            let b = st.pop();
+            res = parseInt(a) + parseInt(b);
+            st.push(parseInt(res));
+        }
+        else if (tokens[i] === '-') {
+            let a = st.pop();
+            let b = st.pop();
+            res = parseInt(b) - parseInt(a);
+            st.push(parseInt(res));
+        }
+        else if (tokens[i] === '*') {
+            let a = st.pop();
+            let b = st.pop();
+            res = parseInt(a) * parseInt(b);
+            st.push(parseInt(res));
+        }
+        else if (tokens[i] === '/') {
+            let a = st.pop();
+            let b = st.pop();
+            res = parseInt(b) / parseInt(a);
+            st.push(parseInt(res));
+        }
+        else {
+            st.push(tokens[i]);
+        }
+    } return st.pop();
+};`,
+      python: `def evalRPN(tokens):
+    stack = []
+    for token in tokens:
+        if token in {'+', '-', '*', '/'}:
+            b = int(stack.pop())
+            a = int(stack.pop())
+            if token == '+':
+                stack.append(a + b)
+            elif token == '-':
+                stack.append(a - b)
+            elif token == '*':
+                stack.append(a * b)
+            elif token == '/':
+                stack.append(int(a / b))
+        else:
+            stack.append(token)
+    return int(stack.pop())`,
+      java: `import java.util.*;
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack<>();
+        for (String token : tokens) {
+            switch (token) {
+                case "+":
+                    stack.push(stack.pop() + stack.pop());
+                    break;
+                case "-":
+                    int b = stack.pop();
+                    int a = stack.pop();
+                    stack.push(a - b);
+                    break;
+                case "*":
+                    stack.push(stack.pop() * stack.pop());
+                    break;
+                case "/":
+                    int divisor = stack.pop();
+                    int dividend = stack.pop();
+                    stack.push(dividend / divisor);
+                    break;
+                default:
+                    stack.push(Integer.parseInt(token));
+            }
+        }
+        return stack.pop();
+    }
+}`,
+    },
+    complexity: {
+      timeComplexity: "O(n)",
+      spaceComplexity: "O(n)",
+    },
+    tags: ["leetcode", "evaluate rpn", "javascript", "java", "python"],
+    difficulty: "medium",
+    link: "/leetcode/evaluate-reverse-polish-notation",
+    dateOfUpload: "2024/08/21",
+  },
+  {
+    id: "remove-nth-node-from-end-of-list",
+    title: "19. Remove Nth Node From End of List",
+    type: "problem",
+    statement:
+      "Given the head of a linked list, remove the nth node from the end of the list and return its head.",
+    examples: [
+      {
+        input: "head = [1,2,3,4,5], n = 2",
+        output: "[1,2,3,5]",
+        explanation:
+          "The second node from the end of the list is node 4. After removing it, the list becomes [1,2,3,5].",
+      },
+      {
+        input: "head = [1], n = 1",
+        output: "[]",
+        explanation:
+          "The only node in the list is removed, leaving an empty list.",
+      },
+      {
+        input: "head = [1,2], n = 1",
+        output: "[1]",
+        explanation:
+          "The last node (node 2) is removed, leaving the list as [1].",
+      },
+    ],
+    steps: [
+      "Initialize two pointers, slow and fast, both pointing to the head of the list.",
+      "Move the fast pointer n steps forward.",
+      "If fast reaches the end, return head.next, as the nth node from the end is the head.",
+      "Move both slow and fast pointers one step at a time until fast reaches the last node.",
+      "Set slow.next to slow.next.next to remove the nth node from the end.",
+      "Return the head of the modified list.",
+    ],
+    code: {
+      javascript: `/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+   
+    let slow=head,fast=head;
+
+    for(let i=0;i<n;i++){
+        fast=fast.next;
+    }
+    if(fast===null) return head.next;
+
+    while(fast.next!==null){
+        slow=slow.next;
+        fast=fast.next;
+    }
+    slow.next=slow.next.next;
+    
+    return head;
+};`,
+      python: `class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        dummy = ListNode(0, head)
+        slow = fast = dummy
+        for _ in range(n):
+            fast = fast.next
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        return dummy.next`,
+      java: `public class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode slow = dummy, fast = dummy;
+        
+        for (int i = 0; i < n + 1; i++) {
+            fast = fast.next;
+        }
+        
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        slow.next = slow.next.next;
+        
+        return dummy.next;
+    }
+}`,
+    },
+    complexity: {
+      timeComplexity: "O(L)",
+      spaceComplexity: "O(1)",
+    },
+    tags: ["leetcode", "linked list", "javascript", "java", "python"],
+    difficulty: "medium",
+    link: "/leetcode/remove-nth-node-from-end-of-list",
+    dateOfUpload: "2024/08/21",
   },
 ];
 

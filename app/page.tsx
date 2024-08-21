@@ -1,8 +1,4 @@
-import Posts from "@/components/Posts";
-import TypeWriteEffect from "@/components/ui/type-effect";
-import { TypewriterEffect } from "@/components/ui/typewriter-effect";
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
-import Link from "next/link";
+import Posts from "@/app/components/Posts";
 
 export default function Home() {
   return (

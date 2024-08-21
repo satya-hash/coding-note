@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import Link from "next/link";
 import React from "react";
 
 const page = () => {
@@ -176,12 +177,12 @@ const page = () => {
         <p className="text-base lg:text-lg">
           I'm always open to new opportunities and collaborations. Reach out to
           me at{" "}
-          <a
+          <Link
             href="email:sathyagangadhara@gmail.com"
             className="text-link-primary"
           >
             sathyagangadhara@gmail.com
-          </a>
+          </Link>
           . Let's create something amazing together!
         </p>
       </div>

@@ -1,7 +1,11 @@
 "use client";
-import Loading from "@/components/Loading";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Content } from "@/lib/interfaces";
+import Loading from "@/app/components/Loading";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/app/components/ui/avatar";
+import { Content } from "@/app/lib/interfaces";
 import axios from "axios";
 import { useEffect, useState } from "react";
 

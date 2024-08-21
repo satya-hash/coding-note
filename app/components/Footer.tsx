@@ -15,7 +15,7 @@ const Footer = () => {
             . All Rights Reserved.
           </span>
           <div className="flex gap-2 mt-4 sm:justify-center sm:mt-0 text-link-primary">
-            <a
+            <Link
               href="https://github.com/satya-hash/"
               target="_blank"
               className=""
@@ -34,8 +34,8 @@ const Footer = () => {
                 />
               </svg>
               <span className="sr-only">GitHub account</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://www.linkedin.com/in/satya-surendra/"
               target="_blank"
               className=""
@@ -66,7 +66,7 @@ const Footer = () => {
                 </g>
               </svg>
               <span className="sr-only">Linkedin</span>
-            </a>
+            </Link>
           </div>
         </div>
       </footer>

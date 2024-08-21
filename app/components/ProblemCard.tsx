@@ -1,7 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import leetcode from "@/assets/leetcode.png";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import leetcode from "@/app/assets/leetcode.png";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/app/components/ui/avatar";
 import { Badge } from "./ui/badge";
 import Link from "next/link";
 

@@ -27,3 +27,7 @@ export interface Content {
   }>;
   tags: string[];
 }
+
+export interface iDefault {
+  query?: string | null | undefined;
+}

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/app/lib/utils";
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
 import { useEffect } from "react";
 

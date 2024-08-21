@@ -1,9 +1,7 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-
-const inter = Inter({ subsets: ["latin"] });
+import "@/app/globals.css";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import { jextFont } from "@/app/assets/fonts";
 
 export const metadata = {
   title:
@@ -40,7 +38,7 @@ export default function RootLayout({
         {/* <link rel="manifest" href="/site.webmanifest" /> */}
       </head>
       <body
-        className={`${inter.className} bg-bg-primary text-text-primary text-base`}
+        className={`${jextFont.className} bg-bg-primary text-text-primary text-base`}
       >
         <Navbar />
         <div className="mb-36">{children}</div>
