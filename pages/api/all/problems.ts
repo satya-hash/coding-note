@@ -1042,6 +1042,220 @@ class Solution {
     link: "/leetcode/remove-nth-node-from-end-of-list",
     dateOfUpload: "2024/08/21",
   },
+  {
+    id: "search-a-2d-matrix",
+    title: "74. Search a 2D Matrix",
+    type: "problem",
+    statement:
+      "You are given an m x n integer matrix with the following two properties: Each row is sorted in non-decreasing order and the first integer of each row is greater than the last integer of the previous row. Given an integer target, return true if the target is in the matrix, or false otherwise.",
+    examples: [
+      {
+        input: "matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3",
+        output: "true",
+        explanation: "The target 3 is present in the matrix.",
+      },
+      {
+        input: "matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13",
+        output: "false",
+        explanation: "The target 13 is not present in the matrix.",
+      },
+    ],
+    steps: [
+      "Initialize two pointers, l and r, representing the start and end of the matrix in a 1D perspective.",
+      "While l is less than or equal to r, calculate the mid index, row, and column from the mid index.",
+      "Compare the matrix[row][col] with the target.",
+      "If it matches, return true.",
+      "If matrix[row][col] is less than the target, move l to mid + 1.",
+      "If matrix[row][col] is greater than the target, move r to mid - 1.",
+      "If the loop ends without finding the target, return false.",
+    ],
+    code: {
+      javascript: `/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function (matrix, target) {
+    let n = matrix.length, m = matrix[0].length;
+    let l = 0, r = n * m - 1;
+    while (l <= r) {
+        let mid = Math.floor((l + r) / 2);
+        let row = Math.floor(mid / m);
+        let col = mid % m;
+
+        if (matrix[row][col] === target) {
+            return true;
+        } else if (matrix[row][col] < target) l = mid + 1;
+        else r = mid - 1;
+    }
+    return false;
+};`,
+      python: `class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        n, m = len(matrix), len(matrix[0])
+        l, r = 0, n * m - 1
+
+        while l <= r:
+            mid = (l + r) // 2
+            row, col = divmod(mid, m)
+            if matrix[row][col] == target:
+                return True
+            elif matrix[row][col] < target:
+                l = mid + 1
+            else:
+                r = mid - 1
+
+        return False`,
+      java: `class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int n = matrix.length, m = matrix[0].length;
+        int l = 0, r = n * m - 1;
+
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            int row = mid / m;
+            int col = mid % m;
+
+            if (matrix[row][col] == target) {
+                return true;
+            } else if (matrix[row][col] < target) {
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
+        }
+
+        return false;
+    }
+}`,
+    },
+    complexity: {
+      timeComplexity: "O(log(m * n))",
+      spaceComplexity: "O(1)",
+    },
+    tags: [
+      "leetcode",
+      "binary search",
+      "2d array",
+      "javascript",
+      "java",
+      "python",
+    ],
+    difficulty: "medium",
+    link: "/leetcode/search-a-2d-matrix",
+    dateOfUpload: "2024/08/23",
+  },
+  {
+    id: "find-minimum-in-rotated-sorted-array",
+    title: "153. Find Minimum in Rotated Sorted Array",
+    type: "problem",
+    statement:
+      "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. Given the sorted rotated array nums of unique elements, return the minimum element of this array. The algorithm must run in O(log n) time.",
+    examples: [
+      {
+        input: "nums = [3,4,5,1,2]",
+        output: "1",
+        explanation: "The original array was [1,2,3,4,5] rotated 3 times.",
+      },
+      {
+        input: "nums = [4,5,6,7,0,1,2]",
+        output: "0",
+        explanation:
+          "The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.",
+      },
+      {
+        input: "nums = [11,13,15,17]",
+        output: "11",
+        explanation:
+          "The original array was [11,13,15,17] and it was rotated 4 times.",
+      },
+    ],
+    steps: [
+      "Initialize two pointers, low and high, to the start and end of the array, respectively.",
+      "While low is less than or equal to high, calculate the mid-point index.",
+      "Check if the current subarray is already sorted. If so, the minimum is at the low pointer.",
+      "If the left half is sorted, move the low pointer to mid + 1.",
+      "If the right half is sorted, move the high pointer to mid - 1.",
+      "Update the minimum value at each step.",
+      "Return the minimum value found.",
+    ],
+    code: {
+      javascript: `/**
+* @param {number[]} nums
+* @return {number}
+*/
+var findMin = function(nums) {
+  let low = 0, high = nums.length - 1, ans = Infinity;
+  while (low <= high) {
+      let mid = Math.floor((low + high) / 2);
+      if (nums[low] <= nums[high]) {
+          ans = Math.min(ans, nums[low]);
+          break;
+      }
+      if (nums[low] <= nums[mid]) {
+          ans = Math.min(ans, nums[low]);
+          low = mid + 1;
+      } else {
+          ans = Math.min(ans, nums[mid]);
+          high = mid - 1;
+      }
+  }
+  return ans;
+};`,
+      python: `class Solution:
+  def findMin(self, nums: List[int]) -> int:
+      low, high = 0, len(nums) - 1
+      ans = float('inf')
+      while low <= high:
+          mid = (low + high) // 2
+          if nums[low] <= nums[high]:
+              ans = min(ans, nums[low])
+              break
+          if nums[low] <= nums[mid]:
+              ans = min(ans, nums[low])
+              low = mid + 1
+          else:
+              ans = min(ans, nums[mid])
+              high = mid - 1
+      return ans`,
+      java: `class Solution {
+  public int findMin(int[] nums) {
+      int low = 0, high = nums.length - 1;
+      int ans = Integer.MAX_VALUE;
+      while (low <= high) {
+          int mid = (low + high) / 2;
+          if (nums[low] <= nums[high]) {
+              ans = Math.min(ans, nums[low]);
+              break;
+          }
+          if (nums[low] <= nums[mid]) {
+              ans = Math.min(ans, nums[low]);
+              low = mid + 1;
+          } else {
+              ans = Math.min(ans, nums[mid]);
+              high = mid - 1;
+          }
+      }
+      return ans;
+  }
+}`,
+    },
+    complexity: {
+      timeComplexity: "O(log n)",
+      spaceComplexity: "O(1)",
+    },
+    tags: [
+      "leetcode",
+      "binary search",
+      "array",
+      "javascript",
+      "java",
+      "python",
+    ],
+    difficulty: "medium",
+    link: "/leetcode/find-minimum-in-rotated-sorted-array",
+    dateOfUpload: "2024/08/23",
+  },
 ];
 
 export default problems;
