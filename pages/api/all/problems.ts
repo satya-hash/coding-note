@@ -1256,6 +1256,94 @@ var findMin = function(nums) {
     link: "/leetcode/find-minimum-in-rotated-sorted-array",
     dateOfUpload: "2024/08/23",
   },
+  {
+    id: "subtree-of-another-tree",
+    title: "572. Subtree of Another Tree",
+    type: "problem",
+    statement:
+      "Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.",
+    examples: [
+      {
+        input: "root = [3,4,5,1,2], subRoot = [4,1,2]",
+        output: "true",
+        explanation:
+          "The subtree rooted at node 4 of the first tree matches exactly with the subRoot.",
+      },
+      {
+        input: "root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]",
+        output: "false",
+        explanation:
+          "The subtree rooted at node 4 does not match with the subRoot because of the extra node 0.",
+      },
+    ],
+    steps: [
+      "Check if the root is null; if so, return false.",
+      "Check if the current root value matches the subRoot value and if the trees are identical from this point.",
+      "If the trees match, return true.",
+      "If they do not match, recursively check the left and right subtrees.",
+      "Use a helper function to determine if two trees are identical in structure and node values.",
+    ],
+    code: {
+      javascript: `/**
+ * @param {TreeNode} root
+ * @param {TreeNode} subRoot
+ * @return {boolean}
+ */
+var isSubtree = function(root, subRoot) {
+    if(root === null) return false;
+    if(root.val === subRoot.val && isSame(root, subRoot)) return true; 
+    return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+
+    function isSame(s, t) {
+        if(s === null && t === null) return true;
+        if(s === null || t === null || s.val !== t.val) return false;
+        return isSame(s.left, t.left) && isSame(s.right, t.right);
+    }
+};`,
+      python: `class Solution:
+    def isSubtree(self, root: TreeNode, subRoot: TreeNode) -> bool:
+        if not root:
+            return False
+        if self.isSame(root, subRoot):
+            return True
+        return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
+
+    def isSame(self, s: TreeNode, t: TreeNode) -> bool:
+        if not s and not t:
+            return True
+        if not s or not t or s.val != t.val:
+            return False
+        return self.isSame(s.left, t.left) and self.isSame(s.right, t.right)`,
+      java: `class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (root == null) return false;
+        if (isSame(root, subRoot)) return true;
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    private boolean isSame(TreeNode s, TreeNode t) {
+        if (s == null && t == null) return true;
+        if (s == null || t == null || s.val != t.val) return false;
+        return isSame(s.left, t.left) && isSame(s.right, t.right);
+    }
+}`,
+    },
+    complexity: {
+      timeComplexity: "O(n * m)",
+      spaceComplexity: "O(n)",
+    },
+    tags: [
+      "leetcode",
+      "binary tree",
+      "tree traversal",
+      "javascript",
+      "java",
+      "python",
+    ],
+    difficulty: "medium",
+    link: "/leetcode/subtree-of-another-tree",
+    dateOfUpload: "2024/08/27",
+  },
 ];
 
 export default problems;
