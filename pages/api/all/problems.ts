@@ -1344,6 +1344,107 @@ var isSubtree = function(root, subRoot) {
     link: "/leetcode/subtree-of-another-tree",
     dateOfUpload: "2024/08/27",
   },
+  {
+    id: "sort-colors",
+    title: "75. Sort Colors",
+    type: "problem",
+    statement:
+      "Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue. We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively. You must solve this problem without using the library's sort function.",
+    examples: [
+      {
+        input: "nums = [2,0,2,1,1,0]",
+        output: "[0,0,1,1,2,2]",
+        explanation:
+          "The array is sorted such that all 0s (red) are on the left, followed by 1s (white), and 2s (blue).",
+      },
+      {
+        input: "nums = [2,0,1]",
+        output: "[0,1,2]",
+        explanation:
+          "The array is sorted to place 0s (red), followed by 1s (white), and 2s (blue) in the correct order.",
+      },
+    ],
+    steps: [
+      "Initialize three pointers: left, mid, and right.",
+      "While the mid pointer is less than or equal to the right pointer, perform the following checks:",
+      "If nums[mid] equals 0, swap it with nums[left], increment left and mid pointers.",
+      "If nums[mid] equals 1, increment the mid pointer.",
+      "If nums[mid] equals 2, swap it with nums[right] and decrement the right pointer.",
+      "Continue until mid is greater than right, ensuring the array is sorted with 0s, 1s, and 2s in their respective positions.",
+    ],
+    code: {
+      javascript: `/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var sortColors = function(nums) {
+    let left = 0,
+        mid = 0,
+        right = nums.length - 1;
+    while (mid <= right) {
+        if (nums[mid] === 0) {
+            [nums[left], nums[mid]] = [nums[mid], nums[left]];
+            left++;
+            mid++;
+        } else if (nums[mid] === 1) {
+            mid++;
+        } else {
+            [nums[right], nums[mid]] = [nums[mid], nums[right]];
+            right--;
+        }
+    }
+};`,
+      python: `class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        left, mid, right = 0, 0, len(nums) - 1
+        while mid <= right:
+            if nums[mid] == 0:
+                nums[left], nums[mid] = nums[mid], nums[left]
+                left += 1
+                mid += 1
+            elif nums[mid] == 1:
+                mid += 1
+            else:
+                nums[right], nums[mid] = nums[mid], nums[right]
+                right -= 1`,
+      java: `class Solution {
+    public void sortColors(int[] nums) {
+        int left = 0, mid = 0, right = nums.length - 1;
+        while (mid <= right) {
+            if (nums[mid] == 0) {
+                int temp = nums[left];
+                nums[left] = nums[mid];
+                nums[mid] = temp;
+                left++;
+                mid++;
+            } else if (nums[mid] == 1) {
+                mid++;
+            } else {
+                int temp = nums[right];
+                nums[right] = nums[mid];
+                nums[mid] = temp;
+                right--;
+            }
+        }
+    }
+}`,
+    },
+    complexity: {
+      timeComplexity: "O(n)",
+      spaceComplexity: "O(1)",
+    },
+    tags: [
+      "leetcode",
+      "two pointers",
+      "sorting",
+      "javascript",
+      "java",
+      "python",
+    ],
+    difficulty: "medium",
+    link: "/leetcode/sort-colors",
+    dateOfUpload: "2024/08/28",
+  },
 ];
 
 export default problems;
