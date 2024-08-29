@@ -10,9 +10,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     (a, b) =>
       new Date(b.dateOfUpload).getTime() - new Date(a.dateOfUpload).getTime()
   );
+
   if (type?.length !== 0) {
-    filteredPosts = problems.filter((problem) => problem.type === type);
+    filteredPosts = filteredPosts.filter((problem) => problem.type === type);
   }
+
   const startIndex = (pageNumber - 1) * limitNumber;
   const endIndex = startIndex + limitNumber;
   const paginatedPosts = filteredPosts.slice(startIndex, endIndex);

@@ -1445,6 +1445,104 @@ var sortColors = function(nums) {
     link: "/leetcode/sort-colors",
     dateOfUpload: "2024/08/28",
   },
+  {
+    id: "validate-binary-search-tree",
+    title: "98. Validate Binary Search Tree",
+    type: "problem",
+    statement:
+      "Given the root of a binary tree, determine if it is a valid binary search tree (BST). A valid BST is defined as follows: The left subtree of a node contains only nodes with keys less than the node's key. The right subtree of a node contains only nodes with keys greater than the node's key. Both the left and right subtrees must also be binary search trees.",
+    examples: [
+      {
+        input: "root = [2,1,3]",
+        output: "true",
+        explanation:
+          "The tree [2,1,3] is a valid binary search tree because all nodes follow the BST property.",
+      },
+      {
+        input: "root = [5,1,4,null,null,3,6]",
+        output: "false",
+        explanation:
+          "The tree [5,1,4,null,null,3,6] is not a valid binary search tree because the node with value 4 is in the right subtree of 5 but is less than 5.",
+      },
+    ],
+    steps: [
+      "Create a helper function that checks if the current node's value is within the valid range.",
+      "If the node is null, return true (base case).",
+      "If the node's value is not within the valid range, return false.",
+      "Recursively check the left and right subtrees with updated valid ranges.",
+      "The left subtree's valid range is [min, node.val) and the right subtree's valid range is (node.val, max].",
+      "Return true if both left and right subtrees are valid BSTs.",
+    ],
+    code: {
+      javascript: `/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+    function helper(root, min, max){
+         if (!root){
+             return true
+         }
+        
+        if ((min !== null && root.val <= min) || (max !== null && root.val >= max)){
+            return false
+        }
+        
+        return helper(root.left, min, root.val) && helper(root.right, root.val, max)
+    }
+
+    return helper(root, null, null)
+};`,
+      python: `class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def helper(node, min_val, max_val):
+            if not node:
+                return True
+            if (min_val is not None and node.val <= min_val) or (max_val is not None and node.val >= max_val):
+                return False
+            return helper(node.left, min_val, node.val) and helper(node.right, node.val, max_val)
+        
+        return helper(root, None, None)`,
+      java: `class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return helper(root, null, null);
+    }
+    
+    private boolean helper(TreeNode node, Integer min, Integer max) {
+        if (node == null) {
+            return true;
+        }
+        if ((min != null && node.val <= min) || (max != null && node.val >= max)) {
+            return false;
+        }
+        return helper(node.left, min, node.val) && helper(node.right, node.val, max);
+    }
+}`,
+    },
+    complexity: {
+      timeComplexity: "O(n)",
+      spaceComplexity: "O(n)",
+    },
+    tags: [
+      "leetcode",
+      "binary search tree",
+      "binary tree",
+      "javascript",
+      "java",
+      "python",
+    ],
+    difficulty: "medium",
+    link: "/leetcode/validate-binary-search-tree",
+    dateOfUpload: "2024/08/29",
+  },
 ];
 
 export default problems;
