@@ -1543,6 +1543,99 @@ var isValidBST = function(root) {
     link: "/leetcode/validate-binary-search-tree",
     dateOfUpload: "2024/08/29",
   },
+  {
+    id: "max-consecutive-ones-iii",
+    title: "1004. Max Consecutive Ones III",
+    type: "problem",
+    statement:
+      "Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.",
+    examples: [
+      {
+        input: "nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2",
+        output: "6",
+        explanation:
+          "The bolded numbers [1,1,1,0,0,1,1,1,1,1,1] were flipped from 0 to 1. The longest subarray is underlined.",
+      },
+      {
+        input: "nums = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], k = 3",
+        output: "10",
+        explanation:
+          "The bolded numbers [0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1] were flipped from 0 to 1. The longest subarray is underlined.",
+      },
+    ],
+    steps: [
+      "Initialize two pointers l and r at the beginning of the array and set count and max to 0.",
+      "Iterate with r through the array, counting the number of 0's encountered.",
+      "If the count of 0's exceeds k, move the l pointer to the right until count is within the limit.",
+      "Update the max length of the window that satisfies the condition.",
+      "Return the max value after the loop completes.",
+    ],
+    code: {
+      javascript: `/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var longestOnes = function(nums, k) {
+    let l = 0, r = 0, count = 0, max = 0;
+    while (r < nums.length) {
+        if (nums[r] === 0) count++;
+        if (count > k) {
+            if (nums[l] === 0) {
+                count--;
+            }
+            l++;
+        }
+        max = Math.max(max, r - l + 1);
+        r++;
+    }
+    return max;
+};`,
+      python: `class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        l = 0
+        count = 0
+        max_len = 0
+        for r in range(len(nums)):
+            if nums[r] == 0:
+                count += 1
+            while count > k:
+                if nums[l] == 0:
+                    count -= 1
+                l += 1
+            max_len = max(max_len, r - l + 1)
+        return max_len`,
+      java: `class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int l = 0, count = 0, max = 0;
+        for (int r = 0; r < nums.length; r++) {
+            if (nums[r] == 0) count++;
+            while (count > k) {
+                if (nums[l] == 0) count--;
+                l++;
+            }
+            max = Math.max(max, r - l + 1);
+        }
+        return max;
+    }
+}`,
+    },
+    complexity: {
+      timeComplexity: "O(n)",
+      spaceComplexity: "O(1)",
+    },
+    tags: [
+      "leetcode",
+      "sliding window",
+      "binary array",
+      "javascript",
+      "java",
+      "python",
+    ],
+    difficulty: "medium",
+    link: "/leetcode/max-consecutive-ones-iii",
+    dateOfUpload: "2024/08/30",
+  },
 ];
 
 export default problems;
