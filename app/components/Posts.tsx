@@ -12,7 +12,6 @@ const Posts = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const limit = 10;
-
   const getData = async (page: number) => {
     let data = await getAllPosts(limit, page, "");
     setAllproblems(data.paginatedPosts);
