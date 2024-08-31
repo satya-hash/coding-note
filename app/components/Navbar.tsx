@@ -17,7 +17,7 @@ const Navbar = ({ searchParams }: { searchParams?: iDefault }) => (
       </Link>
       <div className="flex md:order-2">
         <div className="relative hidden md:block">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10">
             <svg
               className="w-4 h-4 "
               aria-hidden="true"
@@ -67,7 +67,7 @@ const Navbar = ({ searchParams }: { searchParams?: iDefault }) => (
         id="navbar-search"
       >
         <div className="relative mt-3 md:hidden">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10">
             <svg
               className="w-4 h-4 "
               aria-hidden="true"

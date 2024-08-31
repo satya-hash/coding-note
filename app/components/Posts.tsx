@@ -19,6 +19,11 @@ const Posts = () => {
     setTotal(data.total);
   };
 
+  const handleClick = (difficulty: string) => {
+    setPage(1);
+    getData(page);
+  };
+
   useEffect(() => {
     getData(page);
   }, [page]);
@@ -52,6 +57,9 @@ const Posts = () => {
                 {problem.title}{" "}
               </h2>
               <Badge
+                onClick={() =>
+                  problem.difficulty && handleClick(problem.difficulty)
+                }
                 variant={problem.difficulty as "easy" | "medium" | "hard"}
                 className="capitalize text-black"
               >

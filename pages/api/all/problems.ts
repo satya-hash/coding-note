@@ -345,38 +345,38 @@ const problems: Content[] = [
             pre = [1] * len(nums)
             post = [1] * len(nums)
             ans = [1] * len(nums)
-            
+
             for i in range(1, len(nums)):
                 pre[i] = pre[i-1] * nums[i-1]
-                
+
             for i in range(len(nums)-2, -1, -1):
                 post[i] = post[i+1] * nums[i+1]
-                
+
             for i in range(len(nums)):
                 ans[i] = pre[i] * post[i]
-                
+
             return ans`,
       java: `class Solution {
             public int[] productExceptSelf(int[] nums) {
                 int[] pre = new int[nums.length];
                 int[] post = new int[nums.length];
                 int[] ans = new int[nums.length];
-                
+
                 pre[0] = 1;
                 post[nums.length-1] = 1;
-                
+
                 for (int i = 1; i < nums.length; i++) {
                     pre[i] = pre[i-1] * nums[i-1];
                 }
-                
+
                 for (int i = nums.length-2; i >= 0; i--) {
                     post[i] = post[i+1] * nums[i+1];
                 }
-                
+
                 for (int i = 0; i < nums.length; i++) {
                     ans[i] = pre[i] * post[i];
                 }
-                
+
                 return ans;
             }
         }`,
@@ -428,9 +428,9 @@ const problems: Content[] = [
   var merge = function (intervals) {
       arr = [];
       intervals.sort((a, b) => a[0] - b[0]);
-  
+
       let prev = intervals[0];
-  
+
       for (let i = 1; i < intervals.length; i++) {
           let cur = intervals[i];
           if (prev[1] >= cur[0]) {
@@ -440,7 +440,7 @@ const problems: Content[] = [
               prev = cur;
           }
       }
-  
+
       arr.push(prev)
       return arr;
   };`,
@@ -448,7 +448,7 @@ const problems: Content[] = [
       intervals.sort(key=lambda x: x[0])
       merged = []
       prev = intervals[0]
-      
+
       for i in range(1, len(intervals)):
           cur = intervals[i]
           if prev[1] >= cur[0]:
@@ -456,17 +456,17 @@ const problems: Content[] = [
           else:
               merged.append(prev)
               prev = cur
-      
+
       merged.append(prev)
       return merged`,
       java: `import java.util.Arrays;
   import java.util.LinkedList;
-  
+
   class Solution {
       public int[][] merge(int[][] intervals) {
           Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
           LinkedList<int[]> merged = new LinkedList<>();
-          
+
           for (int[] interval : intervals) {
               if (merged.isEmpty() || merged.getLast()[1] < interval[0]) {
                   merged.add(interval);
@@ -474,7 +474,7 @@ const problems: Content[] = [
                   merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
               }
           }
-          
+
           return merged.toArray(new int[merged.size()][]);
       }
   }`,
@@ -528,7 +528,7 @@ const problems: Content[] = [
       let left = 0, right = m, top = 0, bottom = n;
       let res = [];
       while (left <= right && top <= bottom) {
-  
+
           for (let i = left; i <= right; i++) {
               res.push(matrix[top][i])
           }
@@ -538,14 +538,14 @@ const problems: Content[] = [
           }
           right--;
           if (top <= bottom) {
-  
+
               for (let i = right; i >= left; i--) {
                   res.push(matrix[bottom][i])
               }
               bottom--;
           }
           if (left <= right) {
-  
+
               for (let i = bottom; i >= top; i--) {
                   res.push(matrix[i][left])
               }
@@ -558,54 +558,54 @@ const problems: Content[] = [
       res = []
       left, right = 0, len(matrix[0]) - 1
       top, bottom = 0, len(matrix) - 1
-      
+
       while left <= right and top <= bottom:
           for i in range(left, right + 1):
               res.append(matrix[top][i])
           top += 1
-          
+
           for i in range(top, bottom + 1):
               res.append(matrix[i][right])
           right -= 1
-          
+
           if top <= bottom:
               for i in range(right, left - 1, -1):
                   res.append(matrix[bottom][i])
               bottom -= 1
-          
+
           if left <= right:
               for i in range(bottom, top - 1, -1):
                   res.append(matrix[i][left])
               left += 1
-      
+
       return res`,
       java: `import java.util.ArrayList;
   import java.util.List;
-  
+
   class Solution {
       public List<Integer> spiralOrder(int[][] matrix) {
           List<Integer> res = new ArrayList<>();
           int left = 0, right = matrix[0].length - 1;
           int top = 0, bottom = matrix.length - 1;
-          
+
           while (left <= right && top <= bottom) {
               for (int i = left; i <= right; i++) {
                   res.add(matrix[top][i]);
               }
               top++;
-              
+
               for (int i = top; i <= bottom; i++) {
                   res.add(matrix[i][right]);
               }
               right--;
-              
+
               if (top <= bottom) {
                   for (int i = right; i >= left; i--) {
                       res.add(matrix[bottom][i]);
                   }
                   bottom--;
               }
-              
+
               if (left <= right) {
                   for (int i = bottom; i >= top; i--) {
                       res.add(matrix[i][left]);
@@ -613,7 +613,7 @@ const problems: Content[] = [
                   left++;
               }
           }
-          
+
           return res;
       }
   }`,
@@ -675,14 +675,14 @@ const problems: Content[] = [
       for i in range(n):
           for j in range(i, n):
               matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-      
+
       # Reverse each row
       for i in range(n):
           matrix[i].reverse()`,
       java: `class Solution {
       public void rotate(int[][] matrix) {
           int n = matrix.length;
-          
+
           // Transpose the matrix
           for (int i = 0; i < n; i++) {
               for (int j = i; j < n; j++) {
@@ -691,13 +691,13 @@ const problems: Content[] = [
                   matrix[j][i] = temp;
               }
           }
-          
+
           // Reverse each row
           for (int i = 0; i < n; i++) {
               reverseRow(matrix[i]);
           }
       }
-      
+
       private void reverseRow(int[] row) {
           int left = 0, right = row.length - 1;
           while (left < right) {
@@ -972,7 +972,7 @@ class Solution {
  * @return {ListNode}
  */
 var removeNthFromEnd = function(head, n) {
-   
+
     let slow=head,fast=head;
 
     for(let i=0;i<n;i++){
@@ -985,7 +985,7 @@ var removeNthFromEnd = function(head, n) {
         fast=fast.next;
     }
     slow.next=slow.next.next;
-    
+
     return head;
 };`,
       python: `class ListNode:
@@ -1017,18 +1017,18 @@ class Solution {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode slow = dummy, fast = dummy;
-        
+
         for (int i = 0; i < n + 1; i++) {
             fast = fast.next;
         }
-        
+
         while (fast != null) {
             slow = slow.next;
             fast = fast.next;
         }
-        
+
         slow.next = slow.next.next;
-        
+
         return dummy.next;
     }
 }`,
@@ -1291,7 +1291,7 @@ var findMin = function(nums) {
  */
 var isSubtree = function(root, subRoot) {
     if(root === null) return false;
-    if(root.val === subRoot.val && isSame(root, subRoot)) return true; 
+    if(root.val === subRoot.val && isSame(root, subRoot)) return true;
     return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
 
     function isSame(s, t) {
@@ -1491,11 +1491,11 @@ var isValidBST = function(root) {
          if (!root){
              return true
          }
-        
+
         if ((min !== null && root.val <= min) || (max !== null && root.val >= max)){
             return false
         }
-        
+
         return helper(root.left, min, root.val) && helper(root.right, root.val, max)
     }
 
@@ -1509,13 +1509,13 @@ var isValidBST = function(root) {
             if (min_val is not None and node.val <= min_val) or (max_val is not None and node.val >= max_val):
                 return False
             return helper(node.left, min_val, node.val) and helper(node.right, node.val, max_val)
-        
+
         return helper(root, None, None)`,
       java: `class Solution {
     public boolean isValidBST(TreeNode root) {
         return helper(root, null, null);
     }
-    
+
     private boolean helper(TreeNode node, Integer min, Integer max) {
         if (node == null) {
             return true;
