@@ -1769,6 +1769,192 @@ var minWindow = function(s, t) {
         "link": "/leetcode/minimum-window-substring",
         "dateOfUpload": "2024/09/05"
     },
+    {
+        "id": "palindromic-substrings",
+        "title": "647. Palindromic Substrings",
+        "type": "problem",
+        "statement": "Given a string s, return the number of palindromic substrings in it. A string is a palindrome when it reads the same backward as forward. A substring is a contiguous sequence of characters within the string.",
+        "examples": [
+            {
+                "input": "s = \"abc\"",
+                "output": "3",
+                "explanation": "Three palindromic strings: \"a\", \"b\", \"c\"."
+            },
+            {
+                "input": "s = \"aaa\"",
+                "output": "6",
+                "explanation": "Six palindromic strings: \"a\", \"a\", \"a\", \"aa\", \"aa\", \"aaa\"."
+            }
+        ],
+        "steps": [
+            "Initialize a counter to keep track of palindromic substrings.",
+            "Create a helper function 'expandFromCenter' that expands around each character and counts palindromes.",
+            "For each character in the string, call 'expandFromCenter' twice: once for odd-length palindromes (centered on a single character) and once for even-length palindromes (centered between two characters).",
+            "Add the result of the helper function to the counter for each iteration.",
+            "Return the total count of palindromic substrings."
+        ],
+        "code": {
+            "javascript": `/**
+     * @param {string} s
+     * @return {number}
+     */
+    var countSubstrings = function (s) {
+        let counter = 0;
+
+        function expandFromCenter(str, left, right) {
+            let count = 0;
+            while (left >= 0 && right < str.length && str[left] === str[right]) {
+                count++;
+                left--;
+                right++;
+            }
+            return count;
+        }
+
+        for (let i = 0; i < s.length; i++) {
+            counter += expandFromCenter(s, i, i);       // Odd-length palindromes
+            counter += expandFromCenter(s, i, i + 1);   // Even-length palindromes
+        }
+
+        return counter;
+    };`,
+            "python": `class Solution:
+        def countSubstrings(self, s: str) -> int:
+            def expandFromCenter(left, right):
+                count = 0
+                while left >= 0 and right < len(s) and s[left] == s[right]:
+                    count += 1
+                    left -= 1
+                    right += 1
+                return count
+
+            result = 0
+            for i in range(len(s)):
+                result += expandFromCenter(i, i)     # Odd-length palindromes
+                result += expandFromCenter(i, i + 1) # Even-length palindromes
+            return result;`,
+            "java": `class Solution {
+        public int countSubstrings(String s) {
+            int count = 0;
+
+            for (int i = 0; i < s.length(); i++) {
+                count += expandFromCenter(s, i, i);     // Odd-length palindromes
+                count += expandFromCenter(s, i, i + 1); // Even-length palindromes
+            }
+
+            return count;
+        }
+
+        private int expandFromCenter(String s, int left, int right) {
+            int count = 0;
+            while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+                count++;
+                left--;
+                right++;
+            }
+            return count;
+        }
+    }`
+        },
+        "complexity": {
+            "timeComplexity": "O(n^2)",
+            "spaceComplexity": "O(1)"
+        },
+        "tags": ["palindrome", "expand-center", "substring", "dynamic-programming"],
+        "difficulty": "medium",
+        "link": "/leetcode/palindromic-substrings",
+        "dateOfUpload": "2024/09/05"
+    },
+    // {
+    //     "id": "daily-temperatures",
+    //     "title": "739. Daily Temperatures",
+    //     "type": "problem",
+    //     "statement": "Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.",
+    //     "examples": [
+    //         {
+    //             "input": "temperatures = [73,74,75,71,69,72,76,73]",
+    //             "output": "[1,1,4,2,1,1,0,0]",
+    //             "explanation": "Starting from day 0, after 1 day the temperature will rise to 74. For day 3, after 2 days it will rise to 72. For day 6, there is no future warmer day, so answer is 0."
+    //         },
+    //         {
+    //             "input": "temperatures = [30,40,50,60]",
+    //             "output": "[1,1,1,0]",
+    //             "explanation": "For each day, the temperature rises the next day, except for the last day which has no warmer day in the future."
+    //         },
+    //         {
+    //             "input": "temperatures = [30,60,90]",
+    //             "output": "[1,1,0]",
+    //             "explanation": "The temperature rises after 1 day for each of the first two days, but there is no warmer day after the third."
+    //         }
+    //     ],
+    //     "steps": [
+    //         "Create an array 'res' initialized with 0 for each day.",
+    //         "Create a stack 'st' to keep track of the index of days with unsolved temperature comparisons.",
+    //         "Iterate through the array from the last day to the first.",
+    //         "For each day, compare its temperature with the temperatures of the days in the stack.",
+    //         "Pop days from the stack while their temperatures are less than or equal to the current day.",
+    //         "If the stack is not empty, calculate the difference between the current day and the day at the top of the stack.",
+    //         "Push the current day's index onto the stack.",
+    //         "At the end, return the 'res' array."
+    //     ],
+    //     "code": {
+    //         "javascript": `/**
+    //  * @param {number[]} temperatures
+    //  * @return {number[]}
+    //  */
+    // var dailyTemperatures = function (temperatures) {
+    //     let res = new Array(temperatures.length).fill(0);
+    //     let st = [];
+
+    //     for (let i = temperatures.length-1; i >=0; i--) {
+    //         const temp = temperatures[i];
+    //         while (st.length > 0 && temp >= temperatures[st[st.length - 1]]) {
+    //             st.pop();
+    //         }
+    //         if(st.length>0) res[i] = st[st.length-1]-i;
+    //         st.push(i);
+    //     }
+    //     return res;
+    // };`,
+    //         "python": `class Solution:
+    //     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+    //         res = [0] * len(temperatures)
+    //         st = []
+
+    //         for i in range(len(temperatures) - 1, -1, -1):
+    //             while st and temperatures[i] >= temperatures[st[-1]]:
+    //                 st.pop()
+    //             if st:
+    //                 res[i] = st[-1] - i
+    //             st.append(i)
+    //         return res;`,
+    //         "java": `class Solution {
+    //     public int[] dailyTemperatures(int[] temperatures) {
+    //         int[] res = new int[temperatures.length];
+    //         Stack<Integer> st = new Stack<>();
+
+    //         for (int i = temperatures.length - 1; i >= 0; i--) {
+    //             while (!st.isEmpty() && temperatures[i] >= temperatures[st.peek()]) {
+    //                 st.pop();
+    //             }
+    //             if (!st.isEmpty()) {
+    //                 res[i] = st.peek() - i;
+    //             }
+    //             st.push(i);
+    //         }
+    //         return res;
+    //     }
+    // }`
+    //     },
+    //     "complexity": {
+    //         "timeComplexity": "O(n)",
+    //         "spaceComplexity": "O(n)"
+    //     },
+    //     "tags": ["monotonic-stack", "array", "stack"],
+    //     "difficulty": "medium",
+    //     "link": "/leetcode/daily-temperatures",
+    //     "dateOfUpload": "2024/10/05"
+    // }
 
 
 ];
