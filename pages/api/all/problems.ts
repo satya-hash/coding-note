@@ -1865,96 +1865,186 @@ var minWindow = function(s, t) {
         "link": "/leetcode/palindromic-substrings",
         "dateOfUpload": "2024/09/05"
     },
-    // {
-    //     "id": "daily-temperatures",
-    //     "title": "739. Daily Temperatures",
-    //     "type": "problem",
-    //     "statement": "Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.",
-    //     "examples": [
-    //         {
-    //             "input": "temperatures = [73,74,75,71,69,72,76,73]",
-    //             "output": "[1,1,4,2,1,1,0,0]",
-    //             "explanation": "Starting from day 0, after 1 day the temperature will rise to 74. For day 3, after 2 days it will rise to 72. For day 6, there is no future warmer day, so answer is 0."
-    //         },
-    //         {
-    //             "input": "temperatures = [30,40,50,60]",
-    //             "output": "[1,1,1,0]",
-    //             "explanation": "For each day, the temperature rises the next day, except for the last day which has no warmer day in the future."
-    //         },
-    //         {
-    //             "input": "temperatures = [30,60,90]",
-    //             "output": "[1,1,0]",
-    //             "explanation": "The temperature rises after 1 day for each of the first two days, but there is no warmer day after the third."
-    //         }
-    //     ],
-    //     "steps": [
-    //         "Create an array 'res' initialized with 0 for each day.",
-    //         "Create a stack 'st' to keep track of the index of days with unsolved temperature comparisons.",
-    //         "Iterate through the array from the last day to the first.",
-    //         "For each day, compare its temperature with the temperatures of the days in the stack.",
-    //         "Pop days from the stack while their temperatures are less than or equal to the current day.",
-    //         "If the stack is not empty, calculate the difference between the current day and the day at the top of the stack.",
-    //         "Push the current day's index onto the stack.",
-    //         "At the end, return the 'res' array."
-    //     ],
-    //     "code": {
-    //         "javascript": `/**
-    //  * @param {number[]} temperatures
-    //  * @return {number[]}
-    //  */
-    // var dailyTemperatures = function (temperatures) {
-    //     let res = new Array(temperatures.length).fill(0);
-    //     let st = [];
+    {
+        "id": "daily-temperatures",
+        "title": "739. Daily Temperatures",
+        "type": "problem",
+        "statement": "Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.",
+        "examples": [
+            {
+                "input": "temperatures = [73,74,75,71,69,72,76,73]",
+                "output": "[1,1,4,2,1,1,0,0]",
+                "explanation": "Starting from day 0, after 1 day the temperature will rise to 74. For day 3, after 2 days it will rise to 72. For day 6, there is no future warmer day, so answer is 0."
+            },
+            {
+                "input": "temperatures = [30,40,50,60]",
+                "output": "[1,1,1,0]",
+                "explanation": "For each day, the temperature rises the next day, except for the last day which has no warmer day in the future."
+            },
+            {
+                "input": "temperatures = [30,60,90]",
+                "output": "[1,1,0]",
+                "explanation": "The temperature rises after 1 day for each of the first two days, but there is no warmer day after the third."
+            }
+        ],
+        "steps": [
+            "Create an array 'res' initialized with 0 for each day.",
+            "Create a stack 'st' to keep track of the index of days with unsolved temperature comparisons.",
+            "Iterate through the array from the last day to the first.",
+            "For each day, compare its temperature with the temperatures of the days in the stack.",
+            "Pop days from the stack while their temperatures are less than or equal to the current day.",
+            "If the stack is not empty, calculate the difference between the current day and the day at the top of the stack.",
+            "Push the current day's index onto the stack.",
+            "At the end, return the 'res' array."
+        ],
+        "code": {
+            "javascript": `/**
+     * @param {number[]} temperatures
+     * @return {number[]}
+     */
+    var dailyTemperatures = function (temperatures) {
+        let res = new Array(temperatures.length).fill(0);
+        let st = [];
 
-    //     for (let i = temperatures.length-1; i >=0; i--) {
-    //         const temp = temperatures[i];
-    //         while (st.length > 0 && temp >= temperatures[st[st.length - 1]]) {
-    //             st.pop();
-    //         }
-    //         if(st.length>0) res[i] = st[st.length-1]-i;
-    //         st.push(i);
-    //     }
-    //     return res;
-    // };`,
-    //         "python": `class Solution:
-    //     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-    //         res = [0] * len(temperatures)
-    //         st = []
+        for (let i = temperatures.length-1; i >=0; i--) {
+            const temp = temperatures[i];
+            while (st.length > 0 && temp >= temperatures[st[st.length - 1]]) {
+                st.pop();
+            }
+            if(st.length>0) res[i] = st[st.length-1]-i;
+            st.push(i);
+        }
+        return res;
+    };`,
+            "python": `class Solution:
+        def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+            res = [0] * len(temperatures)
+            st = []
 
-    //         for i in range(len(temperatures) - 1, -1, -1):
-    //             while st and temperatures[i] >= temperatures[st[-1]]:
-    //                 st.pop()
-    //             if st:
-    //                 res[i] = st[-1] - i
-    //             st.append(i)
-    //         return res;`,
-    //         "java": `class Solution {
-    //     public int[] dailyTemperatures(int[] temperatures) {
-    //         int[] res = new int[temperatures.length];
-    //         Stack<Integer> st = new Stack<>();
+            for i in range(len(temperatures) - 1, -1, -1):
+                while st and temperatures[i] >= temperatures[st[-1]]:
+                    st.pop()
+                if st:
+                    res[i] = st[-1] - i
+                st.append(i)
+            return res;`,
+            "java": `class Solution {
+        public int[] dailyTemperatures(int[] temperatures) {
+            int[] res = new int[temperatures.length];
+            Stack<Integer> st = new Stack<>();
 
-    //         for (int i = temperatures.length - 1; i >= 0; i--) {
-    //             while (!st.isEmpty() && temperatures[i] >= temperatures[st.peek()]) {
-    //                 st.pop();
-    //             }
-    //             if (!st.isEmpty()) {
-    //                 res[i] = st.peek() - i;
-    //             }
-    //             st.push(i);
-    //         }
-    //         return res;
-    //     }
-    // }`
-    //     },
-    //     "complexity": {
-    //         "timeComplexity": "O(n)",
-    //         "spaceComplexity": "O(n)"
-    //     },
-    //     "tags": ["monotonic-stack", "array", "stack"],
-    //     "difficulty": "medium",
-    //     "link": "/leetcode/daily-temperatures",
-    //     "dateOfUpload": "2024/10/05"
-    // }
+            for (int i = temperatures.length - 1; i >= 0; i--) {
+                while (!st.isEmpty() && temperatures[i] >= temperatures[st.peek()]) {
+                    st.pop();
+                }
+                if (!st.isEmpty()) {
+                    res[i] = st.peek() - i;
+                }
+                st.push(i);
+            }
+            return res;
+        }
+    }`
+        },
+        "complexity": {
+            "timeComplexity": "O(n)",
+            "spaceComplexity": "O(n)"
+        },
+        "tags": ["monotonic-stack", "array", "stack"],
+        "difficulty": "medium",
+        "link": "/leetcode/daily-temperatures",
+        "dateOfUpload": "2024/09/06"
+    },
+    {
+        "id": "number-of-visible-people-in-a-queue",
+        "title": "1944. Number of Visible People in a Queue",
+        "type": "problem",
+        "statement": "There are n people standing in a queue, and they are numbered from 0 to n - 1 in left to right order. You are given an array heights of distinct integers where heights[i] represents the height of the ith person. A person can see another person to their right in the queue if everybody in between is shorter than both of them. More formally, the ith person can see the jth person if i < j and min(heights[i], heights[j]) > max(heights[i+1], heights[i+2], ..., heights[j-1]). Return an array answer of length n where answer[i] is the number of people the ith person can see to their right in the queue.",
+        "examples": [
+            {
+                "input": "heights = [10,6,8,5,11,9]",
+                "output": "[3,1,2,1,1,0]",
+                "explanation": "Person 0 can see person 1, 2, and 4. Person 1 can see person 2. Person 2 can see person 3 and 4. Person 3 can see person 4. Person 4 can see person 5. Person 5 can see no one since nobody is to the right of them."
+            },
+            {
+                "input": "heights = [5,1,2,3,10]",
+                "output": "[4,1,1,1,0]",
+                "explanation": "Person 0 can see persons 1, 2, 3, and 4. The rest can see fewer people."
+            }
+        ],
+        "steps": [
+            "Initialize an array 'res' of the same length as heights, filled with 0s, which will store the result.",
+            "Create an empty stack 'st' to keep track of indexes of the people we are processing.",
+            "Iterate through the array of heights from right to left.",
+            "For each person at index 'i', initialize a counter to track how many people they can see.",
+            "While the stack is not empty and the current person is taller than or equal to the person on top of the stack, pop from the stack and increment the counter.",
+            "If the stack is not empty after the loop, the person can also see the person at the top of the stack, so increment the counter by 1.",
+            "Store the result in the 'res' array.",
+            "Push the current person’s index onto the stack.",
+            "Return the 'res' array."
+        ],
+        "code": {
+            "javascript": `/**
+     * @param {number[]} heights
+     * @return {number[]}
+     */
+    var canSeePersonsCount = function (heights) {
+        let res = new Array(heights.length).fill(0);
+        let st = [];
+
+        for (let i = heights.length - 1; i >= 0; i--) {
+            let count = 0;
+            const h = heights[i];
+            while (st.length > 0 && h >= heights[st[st.length - 1]]) {
+                st.pop();
+                count++;
+            }
+            if (st.length > 0) res[i] = count + 1;
+            else res[i] = count;
+            st.push(i);
+        }
+        return res;
+    };`,
+            "python": `class Solution:
+        def canSeePersonsCount(self, heights: List[int]) -> List[int]:
+            res = [0] * len(heights)
+            st = []
+
+            for i in range(len(heights) - 1, -1, -1):
+                count = 0
+                while st and heights[i] >= heights[st[-1]]:
+                    st.pop()
+                    count += 1
+                res[i] = count + (1 if st else 0)
+                st.append(i)
+            return res;`,
+            "java": `class Solution {
+        public int[] canSeePersonsCount(int[] heights) {
+            int[] res = new int[heights.length];
+            Stack<Integer> st = new Stack<>();
+
+            for (int i = heights.length - 1; i >= 0; i--) {
+                int count = 0;
+                while (!st.isEmpty() && heights[i] >= heights[st.peek()]) {
+                    st.pop();
+                    count++;
+                }
+                res[i] = count + (st.isEmpty() ? 0 : 1);
+                st.push(i);
+            }
+            return res;
+        }
+    }`
+        },
+        "complexity": {
+            "timeComplexity": "O(n)",
+            "spaceComplexity": "O(n)"
+        },
+        "tags": ["monotonic-stack", "queue", "array", "stack"],
+        "difficulty": "hard",
+        "link": "/leetcode/number-of-visible-people-in-a-queue",
+        "dateOfUpload": "2024/09/06"
+    },
 
 
 ];
