@@ -492,8 +492,7 @@ const problems: Content[] = [
         id: "spiral-matrix",
         title: "54. Spiral Matrix",
         type: "problem",
-        statement:
-            "Given an m x n matrix, return all elements of the matrix in spiral order.",
+        statement: "Given an m x n matrix, return all elements of the matrix in spiral order. The spiral order starts from the top-left and moves right, down, left, and up, repeating until all elements are visited.",
         examples: [
             {
                 input: "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
@@ -2045,8 +2044,182 @@ var minWindow = function(s, t) {
         "link": "/leetcode/number-of-visible-people-in-a-queue",
         "dateOfUpload": "2024/09/06"
     },
+    {
+        "id": "longest-palindromic-substring",
+        "title": "5. Longest Palindromic Substring",
+        "type": "problem",
+        "statement": "Given a string s, return the longest palindromic substring in s. A palindrome is a string that reads the same forward and backward. You need to find the longest contiguous palindrome within the given string.",
+        "examples": [
+            {
+                "input": "s = 'babad'",
+                "output": "'bab'",
+                "explanation": "'aba' is also a valid answer."
+            },
+            {
+                "input": "s = 'cbbd'",
+                "output": "'bb'",
+                "explanation": "'bb' is the longest palindromic substring."
+            }
+        ],
+        "steps": [
+            "Define a helper function expandFromCenter to find palindromic substrings centered at indices left and right.",
+            "Iterate over the string, checking for palindromic substrings for both odd and even lengths by calling the helper function twice.",
+            "For each index, update the longest palindromic substring found so far.",
+            "Return the longest palindromic substring after completing the iterations."
+        ],
+        "code": {
+            "javascript": `/**
+       * @param {string} s
+       * @return {string}
+       */
+      var longestPalindrome = function (s) {
+          let maxStr = "";
 
+          function expandFromCenter(str, left, right) {
+              while (left >= 0 && right < str.length && str[left] === str[right]) {
+                  left--;
+                  right++;
+              }
+              return str.substring(left + 1, right);
+          }
 
+          for (let i = 0; i < s.length; i++) {
+              let odd = expandFromCenter(s, i, i); // Odd-length palindromes
+              let even = expandFromCenter(s, i, i + 1); // Even-length palindromes
+              if (maxStr.length < odd.length) maxStr = odd;
+              if (maxStr.length < even.length) maxStr = even;
+          }
+          return maxStr;
+      };`,
+            "python": `class Solution:
+          def longestPalindrome(self, s: str) -> str:
+              def expand_from_center(left: int, right: int) -> str:
+                  while left >= 0 and right < len(s) and s[left] == s[right]:
+                      left -= 1
+                      right += 1
+                  return s[left + 1:right]
+
+              max_str = ""
+              for i in range(len(s)):
+                  odd = expand_from_center(i, i)
+                  even = expand_from_center(i, i + 1)
+                  max_str = max(max_str, odd, even, key=len)
+              return max_str`,
+            "java": `class Solution {
+          public String longestPalindrome(String s) {
+              String maxStr = "";
+
+              for (int i = 0; i < s.length(); i++) {
+                  String odd = expandFromCenter(s, i, i);  // Odd-length palindrome
+                  String even = expandFromCenter(s, i, i + 1);  // Even-length palindrome
+
+                  if (maxStr.length() < odd.length()) maxStr = odd;
+                  if (maxStr.length() < even.length()) maxStr = even;
+              }
+
+              return maxStr;
+          }
+
+          private String expandFromCenter(String s, int left, int right) {
+              while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+                  left--;
+                  right++;
+              }
+              return s.substring(left + 1, right);
+          }
+      }`
+        },
+        "complexity": {
+            "timeComplexity": "O(n^2)",
+            "spaceComplexity": "O(1)"
+        },
+        "tags": ["substring", "palindrome", "dynamic-programming"],
+        "difficulty": "medium",
+        "link": "/leetcode/longest-palindromic-substring",
+        "dateOfUpload": "2024/09/07"
+    },
+    {
+        "id": "first-missing-positive",
+        "title": "41. First Missing Positive",
+        "type": "problem",
+        "statement": "Given an unsorted integer array nums, return the smallest positive integer that is not present in nums. You must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.",
+        "examples": [
+            {
+                "input": "nums = [1, 2, 0]",
+                "output": "3",
+                "explanation": "The numbers in the range [1, 2] are all in the array."
+            },
+            {
+                "input": "nums = [3, 4, -1, 1]",
+                "output": "2",
+                "explanation": "1 is in the array but 2 is missing."
+            },
+            {
+                "input": "nums = [7, 8, 9, 11, 12]",
+                "output": "1",
+                "explanation": "The smallest positive integer 1 is missing."
+            }
+        ],
+        "steps": [
+            "Filter the array to remove negative numbers and zeros, keeping only positive integers.",
+            "Iterate through the array and for each number, mark the index corresponding to that number as negative (if it exists in the range).",
+            "After marking, iterate through the array again. The first positive number's index + 1 is the missing positive integer.",
+            "If all numbers are marked, return the length of the array + 1."
+        ],
+        "code": {
+            "javascript": `/**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    var firstMissingPositive = function (nums) {
+        nums = nums.filter(n => n > 0);
+        for (const n of nums) {
+            let idx = Math.abs(n) - 1;
+            if (idx < nums.length && nums[idx] > 0) {
+                nums[idx] *= -1;
+            }
+        }
+        for (let i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) return i + 1;
+        }
+        return nums.length + 1;
+    };`,
+            "python": `class Solution:
+        def firstMissingPositive(self, nums: List[int]) -> int:
+            nums = [n for n in nums if n > 0]
+            for n in nums:
+                idx = abs(n) - 1
+                if idx < len(nums) and nums[idx] > 0:
+                    nums[idx] *= -1
+            for i in range(len(nums)):
+                if nums[i] > 0:
+                    return i + 1
+            return len(nums) + 1;`,
+            "java": `class Solution {
+        public int firstMissingPositive(int[] nums) {
+            nums = Arrays.stream(nums).filter(n -> n > 0).toArray();
+            for (int n : nums) {
+                int idx = Math.abs(n) - 1;
+                if (idx < nums.length && nums[idx] > 0) {
+                    nums[idx] *= -1;
+                }
+            }
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] > 0) return i + 1;
+            }
+            return nums.length + 1;
+        }
+    }`
+        },
+        "complexity": {
+            "timeComplexity": "O(n)",
+            "spaceComplexity": "O(1)"
+        },
+        "tags": ["array", "sorting", "hashing", "two-pointers"],
+        "difficulty": "hard",
+        "link": "/leetcode/first-missing-positive",
+        "dateOfUpload": "2024/09/07"
+    },
 ];
 
 export default problems;
