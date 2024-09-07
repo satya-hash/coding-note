@@ -4,8 +4,8 @@ import Loading from "./Loading";
 import { Content } from "@/app/lib/interfaces";
 import Link from "next/link";
 import { MoveRightIcon } from "lucide-react";
-import { getAllPosts } from "@/app/lib/utils";
-import { Badge } from "./ui/badge";
+import { getAllPosts, getProblemsByDifficulty } from "@/app/lib/utils";
+import { Badge, badgeVariants } from "./ui/badge";
 
 const Posts = () => {
     const [allproblems, setAllproblems] = useState<Content[] | null>(null);
@@ -17,10 +17,15 @@ const Posts = () => {
         setAllproblems(data.paginatedPosts);
         setTotal(data.total);
     };
+    const getDataByDifficulty = async (page: number,difficulty:string) => {
+        let data = await getProblemsByDifficulty(limit, page, "", difficulty);
+        setAllproblems(data.paginatedPosts);
+        setTotal(data.total);
+    };
 
     const handleClick = (difficulty: string) => {
         setPage(1);
-        getData(page);
+        let data = getDataByDifficulty(page,difficulty);
     };
 
     useEffect(() => {
@@ -55,21 +60,43 @@ const Posts = () => {
                                 {" "}
                                 {problem.title}{" "}
                             </h2>
-
-
-
-
-
-                            <Badge
+                            <button
+                                onClick={() =>
+                                    problem.difficulty && handleClick(problem.difficulty)
+                                }
+                                className={`capitalize text-[#333] mt-2 cursor-pointer ${badgeVariants({
+                                    variant: problem.difficulty as "easy" | "medium" | "hard",
+                                })}`}
+                            >
+                                {" "}
+                                {problem.difficulty}{" "}
+                            </button>
+                            <div className="flex gap-2 flex-row">
+                                {
+                                    problem.tags.map((tag, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => handleClick(tag)}
+                                            className={`capitalize text-[#333] mt-2 cursor-pointer ${badgeVariants({
+                                                variant: "outline"
+                                            })}`}
+                                        >
+                                            {" "}
+                                            {tag}{" "}
+                                        </button>
+                                    ))
+                                }
+                            </div>
+                            {/* <Badge
                                 onClick={() =>
                                     problem.difficulty && handleClick(problem.difficulty)
                                 }
                                 variant={problem.difficulty as "easy" | "medium" | "hard"}
-                                className="capitalize text-black"
+                                className="capitalize text-[#333] mt-2 hover:cursor-pointer"
                             >
                                 {" "}
                                 {problem.difficulty}{" "}
-                            </Badge>
+                            </Badge> */}
                             <p className="my-5"> {problem.statement} </p>
                             <a
                                 className="text-btn-primary font-semibold mt-10 flex gap-2 hover:gap-3 transition ease-in-out w-fit"
