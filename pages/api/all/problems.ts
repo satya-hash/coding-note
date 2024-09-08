@@ -2219,7 +2219,111 @@ var minWindow = function(s, t) {
         "difficulty": "hard",
         "link": "/leetcode/first-missing-positive",
         "dateOfUpload": "2024/09/07"
-    },
+    }, {
+        "id": "flood-fill",
+        "title": "733. Flood Fill",
+        "type": "problem",
+        "statement": "An image is represented by an m x n integer grid where image[i][j] represents the pixel value of the image. You are given three integers sr, sc, and color. Perform a flood fill on the image starting from the pixel image[sr][sc]. Return the modified image after performing the flood fill.",
+        "examples": [
+            {
+                "input": "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2",
+                "output": "[[2,2,2],[2,2,0],[2,0,1]]",
+                "explanation": "From the center pixel (sr, sc) = (1, 1), all connected pixels of the same color are filled with the new color."
+            },
+            {
+                "input": "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0",
+                "output": "[[0,0,0],[0,0,0]]",
+                "explanation": "Since the starting pixel is already the same color, no changes are made."
+            }
+        ],
+        "steps": [
+            "If the starting pixel is already the new color, return the image.",
+            "Create a helper function dfs to perform the flood fill by replacing connected pixels with the new color.",
+            "Use dfs to traverse adjacent cells in four directions (up, down, left, right) and replace their color if they match the old color.",
+            "Return the modified image after performing the flood fill."
+        ],
+        "code": {
+            "javascript": `/**
+       * @param {number[][]} image
+       * @param {number} sr
+       * @param {number} sc
+       * @param {number} color
+       * @return {number[][]}
+       */
+      var floodFill = function (image, sr, sc, color) {
+          if (image[sr][sc] === color) return image;
+          let oldColor = image[sr][sc];
+          image[sr][sc] = color;
+          dfs(image, sr, sc, oldColor, color);
+          return image;
+          function dfs(image, sr, sc, oldColor, color) {
+              let adjCells = [
+                  [0, 1],
+                  [1, 0],
+                  [0, -1],
+                  [-1, 0],
+              ];
+              let rowLen = image.length;
+              let colLen = image[0].length;
+
+              for (let i = 0; i < adjCells.length; i++) {
+                  const cell = adjCells[i];
+                  let r = sr + cell[0]
+                  let c = sc + cell[1]
+                  if (r >= 0 && r < rowLen && c >= 0 && c < colLen && image[r][c] === oldColor) {
+                      image[r][c] = color;
+                      dfs(image, r, c, oldColor, color);
+                  }
+              }
+          }
+      };`,
+            "python": `class Solution:
+          def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+              if image[sr][sc] == color:
+                  return image
+              old_color = image[sr][sc]
+              image[sr][sc] = color
+              self.dfs(image, sr, sc, old_color, color)
+              return image
+
+          def dfs(self, image, sr, sc, old_color, color):
+              adj_cells = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+              for dx, dy in adj_cells:
+                  r, c = sr + dx, sc + dy
+                  if 0 <= r < len(image) and 0 <= c < len(image[0]) and image[r][c] == old_color:
+                      image[r][c] = color
+                      self.dfs(image, r, c, old_color, color)`,
+            "java": `class Solution {
+          public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+              if (image[sr][sc] == color) return image;
+              int oldColor = image[sr][sc];
+              image[sr][sc] = color;
+              dfs(image, sr, sc, oldColor, color);
+              return image;
+          }
+
+          private void dfs(int[][] image, int sr, int sc, int oldColor, int newColor) {
+              int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+              for (int[] dir : directions) {
+                  int r = sr + dir[0], c = sc + dir[1];
+                  if (r >= 0 && r < image.length && c >= 0 && c < image[0].length && image[r][c] == oldColor) {
+                      image[r][c] = newColor;
+                      dfs(image, r, c, oldColor, newColor);
+                  }
+              }
+          }
+      }`
+        },
+        "complexity": {
+            "timeComplexity": "O(m * n)",
+            "spaceComplexity": "O(m * n)"
+        },
+        "tags": ["graph", "dfs", "flood-fill", "matrix"],
+        "difficulty": "easy",
+        "link": "/leetcode/flood-fill",
+        "dateOfUpload": "2024/09/07"
+    }
+
 ];
 
 export default problems;
