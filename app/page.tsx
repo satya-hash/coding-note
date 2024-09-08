@@ -7,7 +7,7 @@ export default function Home() {
         <h1 className="md:text-4xl text-3xl lg:text-5xl font-semibold mb-3">
           Latest Posts
         </h1>
-        <p> This blogs is to showcase my <span className="text-link-primary font-semibold">Learnings</span>. </p>
+        <p> This blogs is to showcase my <span className="text-btn-primary font-semibold">Learnings</span>. </p>
         <div className="posts">
           <Posts />
         </div>

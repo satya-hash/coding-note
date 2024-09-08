@@ -179,7 +179,7 @@ const page = () => {
           me at{" "}
           <Link
             href="email:sathyagangadhara@gmail.com"
-            className="text-link-primary"
+            className="text-btn-primary"
           >
             sathyagangadhara@gmail.com
           </Link>

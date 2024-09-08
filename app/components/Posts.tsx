@@ -87,16 +87,6 @@ const Posts = () => {
                                     ))
                                 }
                             </div>
-                            {/* <Badge
-                                onClick={() =>
-                                    problem.difficulty && handleClick(problem.difficulty)
-                                }
-                                variant={problem.difficulty as "easy" | "medium" | "hard"}
-                                className="capitalize text-[#333] mt-2 hover:cursor-pointer"
-                            >
-                                {" "}
-                                {problem.difficulty}{" "}
-                            </Badge> */}
                             <p className="my-5"> {problem.statement} </p>
                             <a
                                 className="text-btn-primary font-semibold mt-10 flex gap-2 hover:gap-3 transition ease-in-out w-fit"
@@ -114,7 +104,7 @@ const Posts = () => {
                 <button
                     onClick={() => setPage(page - 1)}
                     disabled={page === 1}
-                    className="mx-1 px-3 py-1 rounded bg-bg-code hover:bg-link-primary disabled:opacity-50"
+                    className="mx-1 px-3 py-1 rounded bg-bg-code hover:bg-[#ddd] hover:text-bg-code disabled:opacity-50"
                 >
                     Prev
                 </button>
@@ -125,7 +115,7 @@ const Posts = () => {
                         disabled={page === i + 1}
                         className={`mx-1 aspect-square w-8 rounded-full ${page === i + 1
                             ? "bg-btn-primary text-white"
-                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                            : " text-btn-primary border border-bg-btn-primary hover:bg-gray-300 hover:text-bg-primary"
                             }`}
                     >
                         {i + 1}
@@ -134,7 +124,7 @@ const Posts = () => {
                 <button
                     onClick={() => setPage(page + 1)}
                     disabled={page === totalPages}
-                    className="mx-1 px-3 py-1 rounded bg-bg-code hover:bg-link-primary disabled:opacity-50"
+                    className="mx-1 px-3 py-1 rounded bg-bg-code hover:bg-[#ddd] hover:text-bg-code disabled:opacity-50"
                 >
                     Next
                 </button>

@@ -9,12 +9,12 @@ const Footer = () => {
         <div className="flex flex-wrap justify-between md:flex-row flex-col items-center">
           <span className="text-base  sm:text-center ">
             © {new Date().getFullYear()}{" "}
-            <Link href="/" className="hover:underline text-link-primary">
+            <Link href="/" className="hover:underline text-btn-primary">
               Coding Note
             </Link>
             . All Rights Reserved.
           </span>
-          <div className="flex gap-2 mt-4 sm:justify-center sm:mt-0 text-link-primary">
+          <div className="flex gap-2 mt-4 sm:justify-center sm:mt-0 text-btn-primary">
             <Link
               href="https://github.com/satya-hash/"
               target="_blank"

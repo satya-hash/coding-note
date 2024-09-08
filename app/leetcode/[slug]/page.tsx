@@ -43,7 +43,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                 Coding Note
               </a>
             </div>
-            <h1 className="text-2xl font-semibold text-link-primary">
+            <h1 className="text-2xl font-semibold text-btn-primary">
               {" "}
               {problem.title}{" "}
             </h1>

@@ -40,9 +40,9 @@ const NavLinks = () => {
           <Link
             href={link.href}
             className={clsx(
-              "block py-2 px-3 hover:text-text-primary hover:bg-link-primary rounded-sm transition duration-300 ease-in-out",
+              "block py-2 px-3 hover:text-text-primary hover:bg-btn-primary rounded-sm transition duration-300 ease-in-out",
               {
-                "bg-link-primary font-semibold": pathname === link.href,
+                "bg-btn-primary font-semibold": pathname === link.href,
               }
             )}
             aria-current="page"
