@@ -2322,7 +2322,89 @@ var minWindow = function(s, t) {
         "difficulty": "easy",
         "link": "/leetcode/flood-fill",
         "dateOfUpload": "2024/09/07"
+    },
+    {
+        "id": "insert-interval",
+        "title": "57. Insert Interval",
+        "type": "problem",
+        "statement": "Given a sorted array of non-overlapping intervals, insert a new interval such that the array remains sorted and does not contain overlapping intervals. Merge the intervals if necessary and return the resulting array.",
+        "examples": [
+            {
+                "input": "intervals = [[1,3],[6,9]], newInterval = [2,5]",
+                "output": "[[1,5],[6,9]]",
+                "explanation": "The interval [2,5] overlaps with [1,3], so they are merged into [1,5]."
+            },
+            {
+                "input": "intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]",
+                "output": "[[1,2],[3,10],[12,16]]",
+                "explanation": "The interval [4,8] overlaps with [3,5], [6,7], and [8,10], so they are merged into [3,10]."
+            }
+        ],
+        "steps": [
+            "Add the new interval to the intervals array.",
+            "Sort the intervals array based on the start times.",
+            "Iterate through the intervals, merging overlapping intervals by updating the end time of the previous interval if there is an overlap.",
+            "Add the merged intervals to the result array and return it."
+        ],
+        "code": {
+            "javascript": `let res = [];
+      intervals.push(newInterval);
+      intervals.sort((a,b)=>a[0]-b[0]);
+      let prev = intervals[0];
+      for (let i = 1; i < intervals.length; i++) {
+          let cur = intervals[i];
+          if (prev[1] >= cur[0]) {
+              prev[1] = Math.max(prev[1], cur[1]);
+          } else {
+              res.push(prev);
+              prev = cur;
+          }
+      }
+      res.push(prev);
+      return res;`,
+            "python": `class Solution:
+          def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+              intervals.append(newInterval)
+              intervals.sort(key=lambda x: x[0])
+              res = []
+              prev = intervals[0]
+              for cur in intervals[1:]:
+                  if prev[1] >= cur[0]:
+                      prev[1] = max(prev[1], cur[1])
+                  else:
+                      res.append(prev)
+                      prev = cur
+              res.append(prev)
+              return res`,
+            "java": `import java.util.*;
+      class Solution {
+          public int[][] insert(int[][] intervals, int[] newInterval) {
+              List<int[]> res = new ArrayList<>();
+              Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+              int[] prev = newInterval;
+              for (int[] cur : intervals) {
+                  if (prev[1] >= cur[0]) {
+                      prev[1] = Math.max(prev[1], cur[1]);
+                  } else {
+                      res.add(prev);
+                      prev = cur;
+                  }
+              }
+              res.add(prev);
+              return res.toArray(new int[res.size()][]);
+          }
+      }`
+        },
+        "complexity": {
+            "timeComplexity": "O(n log n)",
+            "spaceComplexity": "O(n)"
+        },
+        "tags": ["array", "intervals", "sorting", "merging"],
+        "difficulty": "medium",
+        "link": "/leetcode/insert-interval",
+        "dateOfUpload": "2024/09/09"
     }
+
 
 ];
 
