@@ -2,11 +2,10 @@ import React from "react";
 import Link from "next/link";
 
 const Footer = () => {
-  return (
-    <>
+    return (
       <footer className="max-w-screen-xl bg-bg-primary mx-auto px-4 py-6 fixed w-full bottom-0 left-1/2 translate-x-[-50%]">
         {/* <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" /> */}
-        <div className="flex flex-wrap justify-between md:flex-row flex-col items-center">
+            <div className="flex flex-wrap justify-between md:justify-center md:flex-row flex-col items-center">
           <span className="text-base  sm:text-center ">
             © {new Date().getFullYear()}{" "}
             <Link href="/" className="hover:underline text-btn-primary">
@@ -14,7 +13,7 @@ const Footer = () => {
             </Link>
             . All Rights Reserved.
           </span>
-          <div className="flex gap-2 mt-4 sm:justify-center sm:mt-0 text-btn-primary">
+                <div className="flex gap-2 mt-4 items-center justify-center sm:mt-0 text-btn-primary">
             <Link
               href="https://github.com/satya-hash/"
               target="_blank"
@@ -69,8 +68,7 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-      </footer>
-    </>
+        </footer>
   );
 };
 

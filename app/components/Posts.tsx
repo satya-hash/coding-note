@@ -37,15 +37,15 @@ const Posts = () => {
     const totalPages = Math.ceil(total / limit);
 
     return (
-        <table className="w-full mb-5">
+        <section className="w-full mb-5">
             {allproblems.map((problem, idx) => (
-                <tbody
+                <div
                     key={idx}
-                    className="border-t-2 flex gap-5 mt-5 pt-10 rounded"
+                    className="border-t-2 flex my-10 pt-10 rounded"
                     style={{ borderColor: "rgba(256, 256, 256, 0.4)" }}
                 >
-                    <tr>
-                        <td className="w-1/4 align-top">
+                    <div className='flex flex-col lg:flex-row w-full'>
+                        <td className="lg:w-1/4 w-full align-top date">
                             <h3 className="lg:text-lg text-sm opacity-85">
                                 {" "}
                                 {`${new Date(problem.dateOfUpload).toLocaleString("default", {
@@ -55,7 +55,7 @@ const Posts = () => {
                                 ).getFullYear()}`}{" "}
                             </h3>
                         </td>
-                        <td>
+                        <td className="lg:w-3/4 w-full  problem">
                             <h2 className="lg:text-2xl md:text-xl text-lg font-semibold">
                                 {" "}
                                 {problem.title}{" "}
@@ -71,7 +71,7 @@ const Posts = () => {
                                 {" "}
                                 {problem.difficulty}{" "}
                             </button>
-                            <div className="flex gap-2 flex-row">
+                            <div className="flex gap-2 flex-row flex-wrap">
                                 {
                                     problem.tags.map((tag, idx) => (
                                         <button
@@ -87,9 +87,9 @@ const Posts = () => {
                                     ))
                                 }
                             </div>
-                            <p className="my-5"> {problem.statement} </p>
+                            <p className="my-5 text-ellipsis   w-full"> {problem.statement} </p>
                             <a
-                                className="text-btn-primary font-semibold mt-10 flex gap-2 hover:gap-3 transition ease-in-out w-fit"
+                                className="text-btn-primary font-semibold mt-5 flex gap-2 hover:gap-3 transition ease-in-out w-fit"
                                 href={problem.link}
                             >
                                 {" "}
@@ -97,8 +97,8 @@ const Posts = () => {
                                 <MoveRightIcon />
                             </a>
                         </td>
-                    </tr>
-                </tbody>
+                    </div>
+                </div>
             ))}
             <div className="pagination flex justify-center mt-4">
                 <button
@@ -129,7 +129,7 @@ const Posts = () => {
                     Next
                 </button>
             </div>{" "}
-        </table>
+        </section>
     );
 };
 
