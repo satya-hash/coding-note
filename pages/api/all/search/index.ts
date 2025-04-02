@@ -4,8 +4,10 @@ import problems from "@/pages/api/all/problems";
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     let { query } = req.query;
     let data = problems.filter((problem) => {
+        let normalizedName = problem.title.replace(/^\d+\.\s*/, '').toLowerCase();
+
         return (
-            problem.title.toLowerCase().includes(query as string) ||
+            normalizedName.toLowerCase().includes(query as string) ||
             problem.id.toLowerCase().includes(query as string)
         );
     });
